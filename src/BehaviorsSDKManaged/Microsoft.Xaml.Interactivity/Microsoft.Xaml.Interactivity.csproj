@@ -23,8 +23,11 @@
 				<TargetFrameworks>$(TargetFrameworks);net5.0-windows10.0.18362.0</TargetFrameworks>
 			</PropertyGroup>
 			<ItemGroup>
-				<PackageReference Condition="'$(TargetFramework)'!='net5.0-windows10.0.18362.0'" Include="Uno.WinUI" Version="3.2.0" />
-				<PackageReference Condition="'$(TargetFramework)'=='net5.0-windows10.0.18362.0'" Include="Microsoft.ProjectReunion.WinUI" Version="0.5.0" />
+				<PackageReference Condition="'$(TargetFramework)'!='net5.0-windows10.0.18362.0'" Include="Uno.WinUI" Version="3.11.0-dev.479" />
+				<PackageReference Condition="'$(TargetFramework)'=='net5.0-windows10.0.18362.0'" Include="Microsoft.WindowsAppSDK" Version="1.0.0-experimental1" />
+				<PackageReference Condition="'$(TargetFramework)'=='net5.0-windows10.0.18362.0'" Include="Microsoft.WindowsAppSDK.Foundation" Version="1.0.0-experimental1" />
+				<PackageReference Condition="'$(TargetFramework)'=='net5.0-windows10.0.18362.0'" Include="Microsoft.WindowsAppSDK.WinUI" Version="1.0.0-experimental1" />
+				<PackageReference Condition="'$(TargetFramework)'=='net5.0-windows10.0.18362.0'" Include="Microsoft.WindowsAppSDK.InteractiveExperiences" Version="1.0.0-experimental1" />
 			</ItemGroup>
 		</When>
 		<Otherwise>
@@ -35,6 +38,7 @@
 			</PropertyGroup>
 			<ItemGroup>
 				<PackageReference Include="Uno.UI" Version="3.2.0" />
+				<PackageReference Include="Uno.SourceGenerationTasks" Version="3.2.0" PrivateAssets="all" />
 			</ItemGroup>
 		</Otherwise>
 	</Choose>

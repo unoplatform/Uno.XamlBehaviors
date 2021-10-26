@@ -2,4 +2,18 @@
   <ItemGroup>
     <PackageReference Include="DotNet.ReproducibleBuilds" Version="0.1.26" PrivateAssets="All"/>
   </ItemGroup>
+
+	<Target Name="WorkaroundMissingWinAppSDKDLL"
+				BeforeTargets="BinPlaceBootstrapDll">
+
+		<!-- Workaround for
+	  C:\a\.nuget\microsoft.windowsappsdk.foundation\1.0.0-experimental1\build\Microsoft.WindowsAppSDK.Bootstrap.targets(11,5):
+	  error MSB3030: Could not copy the file "C:\a\.nuget\microsoft.windowsappsdk.foundation\1.0.0-experimental1\build\..\runtimes\lib\native\AnyCPU\Microsoft.WindowsAppSDK.Bootstrap.dll" because it was not found.
+	  -->
+		<CreateProperty Value="x86">
+			<Output
+			  TaskParameter="Value"
+			  PropertyName="_WindowsAppSDKFoundationPlatform" />
+		</CreateProperty>
+	</Target>
 </Project>

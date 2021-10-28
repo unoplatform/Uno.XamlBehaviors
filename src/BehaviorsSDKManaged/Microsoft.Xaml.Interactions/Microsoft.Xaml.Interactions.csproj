@@ -38,7 +38,7 @@
 				<TargetFrameworks>$(TargetFrameworks);uap10.0.18362</TargetFrameworks>
 			</PropertyGroup>
 			<ItemGroup>
-				<PackageReference Include="Uno.UI" Version="3.2.0" />
+				<PackageReference Include="Uno.UI" Version="4.0.0-dev.5407" />
 				<PackageReference Include="Uno.SourceGenerationTasks" Version="3.2.0" PrivateAssets="all" />
 			</ItemGroup>
 		</Otherwise>
@@ -100,4 +100,7 @@
   <Target Name="MATPrerequisite" BeforeTargets="PrepareForBuild" Condition="!Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.PriResources.targets')" Label="MultilingualAppToolkit">
     <Warning Text="$(MSBuildProjectFile) is Multilingual build enabled, but the Multilingual App Toolkit is unavailable during the build. If building with Visual Studio, please check to ensure that toolkit is properly installed." />
   </Target>
+  <ItemGroup>
+    <PackageReference Update="DotNet.ReproducibleBuilds" Version="0.1.66" />
+  </ItemGroup>
 </Project>

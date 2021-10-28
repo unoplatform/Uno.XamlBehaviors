@@ -11,11 +11,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 
-#if HAS_UNO
-	using Popup = Windows.UI.Xaml.Controls.Popup;
-#else
 using Popup = Windows.UI.Xaml.Controls.Primitives.Popup;
-#endif
 
 namespace Microsoft.Xaml.Interactions.Media
 {

@@ -24,11 +24,8 @@
 				<TargetFrameworks>$(TargetFrameworks);net5.0-windows10.0.18362.0</TargetFrameworks>
 			</PropertyGroup>
 			<ItemGroup>
-				<PackageReference Condition="'$(TargetFramework)'!='net5.0-windows10.0.18362.0'" Include="Uno.WinUI" Version="3.11.0-dev.479" />
-				<PackageReference Condition="'$(TargetFramework)'=='net5.0-windows10.0.18362.0'" Include="Microsoft.WindowsAppSDK" Version="1.0.0-experimental1" />
-				<PackageReference Condition="'$(TargetFramework)'=='net5.0-windows10.0.18362.0'" Include="Microsoft.WindowsAppSDK.Foundation" Version="1.0.0-experimental1" />
-				<PackageReference Condition="'$(TargetFramework)'=='net5.0-windows10.0.18362.0'" Include="Microsoft.WindowsAppSDK.WinUI" Version="1.0.0-experimental1" />
-				<PackageReference Condition="'$(TargetFramework)'=='net5.0-windows10.0.18362.0'" Include="Microsoft.WindowsAppSDK.InteractiveExperiences" Version="1.0.0-experimental1" />
+				<PackageReference Condition="'$(TargetFramework)'!='net5.0-windows10.0.18362.0'" Include="Uno.WinUI" Version="4.0.0-dev.5429" />
+				<PackageReference Condition="'$(TargetFramework)'=='net5.0-windows10.0.18362.0'" Include="Microsoft.WindowsAppSDK" Version="1.0.0-preview3" />
 			</ItemGroup>
 		</When>
 		<Otherwise>
@@ -103,4 +100,17 @@
   <ItemGroup>
     <PackageReference Update="DotNet.ReproducibleBuilds" Version="0.1.66" />
   </ItemGroup>
+
+	<Target Name="WorkaroundMissingWinAppSDKDLL_2"
+			BeforeTargets="BeforeBuild">
+
+		<!-- Workaround for
+         C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets(4559,5):
+				 error MSB3030: Could not copy the file "C:\a\.nuget\microsoft.windowsappsdk\1.0.0-preview3\build\..\runtimes\lib\native\AnyCPU\Microsoft.WindowsAppRuntime.Bootstrap.dll" because it was not found.
+	  -->
+		<ItemGroup>
+			<_itemToRemove Include="@(ReferenceCopyLocalPaths)" Condition="'%(FileName)%(Extension)'=='Microsoft.WindowsAppRuntime.Bootstrap.dll'" />
+			<ReferenceCopyLocalPaths Remove="@(_itemToRemove)"/>
+		</ItemGroup>
+	</Target>
 </Project>

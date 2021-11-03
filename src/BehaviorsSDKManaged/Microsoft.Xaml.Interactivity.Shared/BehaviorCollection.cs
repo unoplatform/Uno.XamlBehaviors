@@ -78,7 +78,7 @@ namespace Microsoft.Xaml.Interactivity
                 return;
             }
 
-            if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+            if (global::Windows.ApplicationModel.DesignMode.DesignModeEnabled)
             {
                 return;
             }

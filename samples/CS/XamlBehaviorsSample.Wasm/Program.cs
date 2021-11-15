@@ -22,7 +22,7 @@ namespace XamlBehaviorsSample.Wasm
 		}
 
 		static void ConfigureFilters(ILoggerFactory factory)
-		{ 
+		{
 			factory
 				.WithFilter(new FilterLoggerSettings
 					{
@@ -74,6 +74,10 @@ namespace XamlBehaviorsSample.Wasm
 					}
 				)
 				.AddConsole(LogLevel.Debug);
+
+#if HAS_UNO
+			Uno.UI.Adapter.Microsoft.Extensions.Logging.LoggingAdapter.Initialize();
+#endif
 		}
 	}
 }

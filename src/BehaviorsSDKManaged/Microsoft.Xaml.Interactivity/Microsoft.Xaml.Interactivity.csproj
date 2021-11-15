@@ -23,7 +23,7 @@
 				<TargetFrameworks>$(TargetFrameworks);net5.0-windows10.0.18362.0</TargetFrameworks>
 			</PropertyGroup>
 			<ItemGroup>
-				<PackageReference Condition="'$(TargetFramework)'!='net5.0-windows10.0.18362.0'" Include="Uno.WinUI" Version="4.0.0-dev.5429" />
+				<PackageReference Condition="'$(TargetFramework)'!='net5.0-windows10.0.18362.0'" Include="Uno.WinUI" Version="4.0.0-dev.5594" />
 				<PackageReference Condition="'$(TargetFramework)'=='net5.0-windows10.0.18362.0'" Include="Microsoft.WindowsAppSDK" Version="1.0.0-preview3" />
 			</ItemGroup>
 		</When>
@@ -34,7 +34,7 @@
 				<TargetFrameworks>$(TargetFrameworks);uap10.0.18362</TargetFrameworks>
 			</PropertyGroup>
 			<ItemGroup>
-				<PackageReference Include="Uno.UI" Version="4.0.0-dev.5429" />
+				<PackageReference Include="Uno.UI" Version="4.0.0-dev.5594" />
 				<PackageReference Include="Uno.SourceGenerationTasks" Version="3.2.0" PrivateAssets="all" />
 			</ItemGroup>
 		</Otherwise>

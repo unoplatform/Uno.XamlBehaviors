@@ -34,8 +34,7 @@
 				<TargetFrameworks>$(TargetFrameworks);uap10.0.18362</TargetFrameworks>
 			</PropertyGroup>
 			<ItemGroup>
-				<PackageReference Include="Uno.UI" Version="4.0.0-dev.5612" />
-				<PackageReference Include="Uno.SourceGenerationTasks" Version="3.2.0" PrivateAssets="all" />
+				<PackageReference Include="Uno.UI" Version="4.0.11" />
 			</ItemGroup>
 		</Otherwise>
 	</Choose>

@@ -110,12 +110,12 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Uno.UI">
-      <Version>4.0.11</Version>
+      <Version>4.1.9</Version>
     </PackageReference>
     <PackageReference Include="Uno.UI.Sample.Banner">
       <Version>1.44.0-dev.35</Version>
     </PackageReference>
-		<PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.0.0-dev.5612" />
+		<PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.1.9" />
 	</ItemGroup>
   <Import Project="..\XAMLBehaviorsSample.Shared\XAMLBehaviorsSample.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

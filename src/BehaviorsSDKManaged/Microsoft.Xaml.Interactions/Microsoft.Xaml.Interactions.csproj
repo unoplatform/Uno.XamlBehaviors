@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras" ToolsVersion="15.0">
 	<PropertyGroup>
-		<TargetFrameworks>MonoAndroid10.0;xamarinmac20;xamarinios10;netstandard2.0</TargetFrameworks>
+		<TargetFrameworks>MonoAndroid11.0;xamarinmac20;xamarinios10;netstandard2.0;net6.0-ios;net6.0-macos;net6.0-android;net6.0-maccatalyst</TargetFrameworks>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -24,8 +24,8 @@
 				<TargetFrameworks>$(TargetFrameworks);net5.0-windows10.0.18362.0</TargetFrameworks>
 			</PropertyGroup>
 			<ItemGroup>
-				<PackageReference Condition="'$(TargetFramework)'!='net5.0-windows10.0.18362.0'" Include="Uno.WinUI" Version="4.0.0-dev.5612" />
-				<PackageReference Condition="'$(TargetFramework)'=='net5.0-windows10.0.18362.0'" Include="Microsoft.WindowsAppSDK" Version="1.0.0-preview3" />
+				<PackageReference Condition="'$(TargetFramework)'!='net5.0-windows10.0.18362.0'" Include="Uno.WinUI" Version="4.1.9" />
+				<PackageReference Condition="'$(TargetFramework)'=='net5.0-windows10.0.18362.0'" Include="Microsoft.WindowsAppSDK" Version="1.0.1" />
 			</ItemGroup>
 		</When>
 		<Otherwise>
@@ -35,7 +35,7 @@
 				<TargetFrameworks>$(TargetFrameworks);uap10.0.18362</TargetFrameworks>
 			</PropertyGroup>
 			<ItemGroup>
-				<PackageReference Include="Uno.UI" Version="4.0.11" />
+				<PackageReference Include="Uno.UI" Version="4.1.9" />
 			</ItemGroup>
 		</Otherwise>
 	</Choose>

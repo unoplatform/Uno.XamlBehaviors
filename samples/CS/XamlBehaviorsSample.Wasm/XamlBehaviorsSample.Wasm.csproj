@@ -7,6 +7,7 @@
 		<OutputType>Exe</OutputType>
 		<StartupObject />
     <MonoRuntimeDebuggerEnabled>true</MonoRuntimeDebuggerEnabled>
+	<LangVersion>9.0</LangVersion>
   </PropertyGroup>
 
 	<Import Project="..\XAMLBehaviorsSample.Shared\XAMLBehaviorsSample.Shared.projitems" Label="Shared" />

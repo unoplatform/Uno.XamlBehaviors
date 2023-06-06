@@ -20,6 +20,7 @@
     <PackageCertificateKeyFile>XAMLBehaviorsSample_TemporaryKey.pfx</PackageCertificateKeyFile>
     <PackageCertificateThumbprint>AFA9B96DE3D22CBF4F1C64038F800248A0BA3076</PackageCertificateThumbprint>
     <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
+    <LangVersion>9.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>

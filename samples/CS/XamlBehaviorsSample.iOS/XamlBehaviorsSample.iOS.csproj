@@ -13,6 +13,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <CopyNuGetImplementations>True</CopyNuGetImplementations>
+    <LangVersion>9.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -97,17 +98,16 @@
     <Content Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Xaml.Interactions">
-      <HintPath>..\..\..\out\XAMLBehaviorsSample\bin\AnyCPU\Debug\monoandroid80\80\Microsoft.Xaml.Interactions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xaml.Interactivity">
-      <HintPath>..\..\..\out\XAMLBehaviorsSample\bin\AnyCPU\Debug\monoandroid80\80\Microsoft.Xaml.Interactivity.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\src\BehaviorsSDKManaged\Microsoft.Xaml.Interactions\Microsoft.Xaml.Interactions.csproj" />
+		<ProjectReference Include="..\..\..\src\BehaviorsSDKManaged\Microsoft.Xaml.Interactivity\Microsoft.Xaml.Interactivity.csproj" />
+	</ItemGroup>
   <ItemGroup>
     <PackageReference Include="Uno.UI">
       <Version>4.1.9</Version>

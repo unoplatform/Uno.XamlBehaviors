@@ -6,13 +6,13 @@ namespace Microsoft.Xaml.Interactivity
 
     internal static class ResourceHelper
     {
-#if NET5_0_WINDOWS10_0_18362_0
+#if WinUI && !HAS_UNO
         private static ResourceLoader strings = new ResourceLoader(ResourceLoader.GetDefaultResourceFilePath(), "Microsoft.Xaml.Interactivity/Strings");
 #endif
 
         public static string GetString(string resourceName)
         {
-#if !NET5_0_WINDOWS10_0_18362_0
+#if !WinUI || HAS_UNO
             ResourceLoader strings = ResourceLoader.GetForCurrentView("Microsoft.Xaml.Interactivity/Strings");
 #endif
             return strings.GetString(resourceName);

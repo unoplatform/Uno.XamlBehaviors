@@ -13,6 +13,9 @@
 		
 		<!--https://github.com/xamarin/AndroidSupportComponents/issues/176-->
 		<XamarinAndroidSupportSkipVerifyVersions>true</XamarinAndroidSupportSkipVerifyVersions>
+		
+		<!-- Set by msbuild extras -->
+		<DisableImplicitFrameworkDefines>false</DisableImplicitFrameworkDefines>
 	</PropertyGroup>
 
 	<Choose>

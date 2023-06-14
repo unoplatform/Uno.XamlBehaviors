@@ -36,8 +36,8 @@
 		</PackageReference>
 		<PackageReference Include="Uno.Wasm.Bootstrap" Version="7.0.20" />
 		<PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="7.0.20" />
-		<PackageReference Include="Uno.UI.WebAssembly" Version="5.0.0-feature.breaking-changes.601" PrivateAssets="All" />
-		<PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="5.0.0-feature.breaking-changes.601" />
+		<PackageReference Include="Uno.UI.WebAssembly" Version="5.0.0-feature.5x.655" PrivateAssets="All" />
+		<PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="5.0.0-feature.5x.655" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Filter" Version="1.1.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug">

@@ -73,6 +73,8 @@ jobs:
       restoreNugetPackages: false
       logProjectEvents: false
       createLogFile: false
+
+  - template: scripts/ci/sign-packages.yml
   
   - task: PublishBuildArtifacts@1
     condition: always()
@@ -80,8 +82,6 @@ jobs:
       PathtoPublish: '$(build.artifactstagingdirectory)'
       ArtifactName: xamlbehavior-drop
       publishLocation: Container
-
-  - template: scripts/ci/sign-packages.yml
   
   - task: PublishBuildArtifacts@1
     displayName: Publish Wasm site files

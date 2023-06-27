@@ -23,21 +23,21 @@
 			<PropertyGroup>
 				<DefineConstants>WinUI</DefineConstants>
 				<PackageId>Uno.Microsoft.Xaml.Behaviors.Interactivity.WinUI</PackageId>
-				<TargetFrameworks>$(TargetFrameworks);net5.0-windows10.0.18362.0</TargetFrameworks>
+				<TargetFrameworks>$(TargetFrameworks);net5.0-windows10.0.19041.0</TargetFrameworks>
 			</PropertyGroup>
 			<ItemGroup>
-				<PackageReference Condition="'$(TargetFramework)'!='net5.0-windows10.0.18362.0'" Include="Uno.WinUI" Version="5.0.0-feature.5x.655" />
-				<PackageReference Condition="'$(TargetFramework)'=='net5.0-windows10.0.18362.0'" Include="Microsoft.WindowsAppSDK" Version="1.0.1" />
+				<PackageReference Condition="'$(TargetFramework)'!='net5.0-windows10.0.19041.0'" Include="Uno.WinUI" Version="5.0.0-dev.1148" />
+				<PackageReference Condition="'$(TargetFramework)'=='net5.0-windows10.0.19041.0'" Include="Microsoft.WindowsAppSDK" Version="1.0.1" />
 			</ItemGroup>
 		</When>
 		<Otherwise>
 			<PropertyGroup>
 				<DefineConstants>NETFX_CORE;WINDOWS_UWP</DefineConstants>
 				<PackageId>Uno.Microsoft.Xaml.Behaviors.Interactivity</PackageId>
-				<TargetFrameworks>$(TargetFrameworks);uap10.0.18362</TargetFrameworks>
+				<TargetFrameworks>$(TargetFrameworks);uap10.0.19041</TargetFrameworks>
 			</PropertyGroup>
 			<ItemGroup>
-				<PackageReference Include="Uno.UI" Version="5.0.0-feature.5x.655" />
+				<PackageReference Include="Uno.UI" Version="5.0.0-dev.1148" />
 			</ItemGroup>
 		</Otherwise>
 	</Choose>

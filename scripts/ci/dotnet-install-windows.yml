@@ -1,11 +1,12 @@
 parameters:
-  DotNetVersion: '6.0.300-preview.22154.4'
-  UnoCheck_Version: '1.1.0-dev.22'
-  UnoCheck_Manifest: 'https://raw.githubusercontent.com/unoplatform/uno.check/d14571a546b55f58e51e392c04cf098168d6fe2d/manifests/uno.ui-preview.manifest.json'
+  DotNetVersion: '7.0.302'
+  UnoCheck_Version: '1.11.0-dev.2'
+  UnoCheck_Manifest: 'https://raw.githubusercontent.com/unoplatform/uno.check/146b0b4b23d866bef455494a12ad7ffd2f6f2d20/manifests/uno.ui.manifest.json'
+
 
 steps:
 
-  # Required until .NET 6 installs properly on Windows using UseDotnet
+  # Required until .NET installs properly on Windows using UseDotnet
   # using preview builds
   - powershell: |
       $ProgressPreference = 'SilentlyContinue'
@@ -25,7 +26,7 @@ steps:
     
   - powershell: |
       & dotnet tool update --global uno.check --version ${{ parameters.UnoCheck_Version }} --add-source https://api.nuget.org/v3/index.json
-      & uno-check -v --ci --non-interactive --fix --skip xcode --skip gtk3 --skip vswin --skip vsmac --manifest ${{ parameters.UnoCheck_Manifest }}
+      & uno-check -v --ci --non-interactive --fix --skip androidsdk --skip xcode --skip gtk3 --skip vswin --skip vsmac --manifest ${{ parameters.UnoCheck_Manifest }}
     displayName: Install .NET Workloads
     errorActionPreference: continue
     ignoreLASTEXITCODE: true

@@ -29,8 +29,8 @@ jobs:
 
   - template: scripts/ci/dotnet-install-windows.yml
 
-  - powershell: .\scripts\Install-WindowsSdkISO.ps1 18362
-    displayName: Install Windows SDK 18362
+  - powershell: .\scripts\Install-WindowsSdkISO.ps1 19041
+    displayName: Install Windows SDK 19041
 
   - task: MSBuild@1
     displayName: Build WinUI package
@@ -80,11 +80,12 @@ jobs:
       PathtoPublish: '$(build.artifactstagingdirectory)'
       ArtifactName: xamlbehavior-drop
       publishLocation: Container
-  
+
+  - template: scripts/ci/sign-packages.yml
   
   - task: PublishBuildArtifacts@1
     displayName: Publish Wasm site files
     inputs:
-      pathToPublish: .\samples\CS\XamlBehaviorsSample.Wasm\bin\Release\net5.0\dist
+      pathToPublish: .\samples\CS\XamlBehaviorsSample.Wasm\bin\Release\net7.0\dist
       artifactType: container
       artifactName: xamlbehavior-wasm

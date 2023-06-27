@@ -11,8 +11,8 @@
     <AssemblyName>XAMLBehaviorsSample</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.17763.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
@@ -122,7 +122,7 @@
       <Version>6.2.8</Version>
     </PackageReference>
     <PackageReference Include="Uno.UI.Sample.Banner">
-      <Version>1.44.0-dev.35</Version>
+      <Version>1.45.0-dev.64</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="..\XAMLBehaviorsSample.Shared\XAMLBehaviorsSample.Shared.projitems" Label="Shared" />

@@ -7,14 +7,14 @@ The WinUI [Uno.Microsoft.Xaml.Behaviors.WinUI.Managed](https://www.nuget.org/pac
 To install the WinUI behaviors in .NET class libraries, such as the ones found in Uno Platform 4.7, use the following:
 
 ```xml
-<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows10.0.18362.0'">
+<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows10.0.19041.0'">
   <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
 </ItemGroup>
-<ItemGroup Condition="'$(TargetFramework)' != 'net6.0-windows10.0.18362.0'">
+<ItemGroup Condition="'$(TargetFramework)' != 'net6.0-windows10.0.19041.0'">
   <PackageReference Include="Uno.Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.3.0" />
 </ItemGroup>
 ```
-You may need to adjust `net6.0-windows10.0.18362.0` to the TargetFramework value found in your project.
+You may need to adjust `net6.0-windows10.0.19041.0` to the TargetFramework value found in your project.
 
 # **XAML Behaviors**
 XAML Behaviors is an easy-to-use means of adding common and reusable interactivity to your Windows UWP applications with minimal code. It is available for both native and managed applications. Use of XAML Behaviors is governed by the MIT License

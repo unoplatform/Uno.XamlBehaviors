@@ -1,6 +1,6 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras" ToolsVersion="15.0">
 	<PropertyGroup>
-		<TargetFrameworks>MonoAndroid11.0;xamarinmac20;xamarinios10;netstandard2.0;net6.0-ios;net6.0-macos;net6.0-android;net6.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net7.0;net7.0-ios;net7.0-macos;net7.0-android;net7.0-maccatalyst</TargetFrameworks>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -13,6 +13,9 @@
 		
 		<!--https://github.com/xamarin/AndroidSupportComponents/issues/176-->
 		<XamarinAndroidSupportSkipVerifyVersions>true</XamarinAndroidSupportSkipVerifyVersions>
+		
+		<!-- Set by msbuild extras -->
+		<DisableImplicitFrameworkDefines>false</DisableImplicitFrameworkDefines>
 	</PropertyGroup>
 
 	<Choose>
@@ -20,21 +23,21 @@
 			<PropertyGroup>
 				<DefineConstants>WinUI</DefineConstants>
 				<PackageId>Uno.Microsoft.Xaml.Behaviors.Interactivity.WinUI</PackageId>
-				<TargetFrameworks>$(TargetFrameworks);net5.0-windows10.0.18362.0</TargetFrameworks>
+				<TargetFrameworks>$(TargetFrameworks);net5.0-windows10.0.19041.0</TargetFrameworks>
 			</PropertyGroup>
 			<ItemGroup>
-				<PackageReference Condition="'$(TargetFramework)'!='net5.0-windows10.0.18362.0'" Include="Uno.WinUI" Version="4.1.9" />
-				<PackageReference Condition="'$(TargetFramework)'=='net5.0-windows10.0.18362.0'" Include="Microsoft.WindowsAppSDK" Version="1.0.1" />
+				<PackageReference Condition="'$(TargetFramework)'!='net5.0-windows10.0.19041.0'" Include="Uno.WinUI" Version="5.0.0-dev.1148" />
+				<PackageReference Condition="'$(TargetFramework)'=='net5.0-windows10.0.19041.0'" Include="Microsoft.WindowsAppSDK" Version="1.0.1" />
 			</ItemGroup>
 		</When>
 		<Otherwise>
 			<PropertyGroup>
 				<DefineConstants>NETFX_CORE;WINDOWS_UWP</DefineConstants>
 				<PackageId>Uno.Microsoft.Xaml.Behaviors.Interactivity</PackageId>
-				<TargetFrameworks>$(TargetFrameworks);uap10.0.18362</TargetFrameworks>
+				<TargetFrameworks>$(TargetFrameworks);uap10.0.19041</TargetFrameworks>
 			</PropertyGroup>
 			<ItemGroup>
-				<PackageReference Include="Uno.UI" Version="4.1.9" />
+				<PackageReference Include="Uno.UI" Version="5.0.0-dev.1148" />
 			</ItemGroup>
 		</Otherwise>
 	</Choose>

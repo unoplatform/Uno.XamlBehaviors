@@ -1,0 +1,85 @@
+name: Build Managed
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  managed-build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout XamlBehaviors.git 
+      uses: actions/checkout@v4
+
+    - name: Install the .NET 9.0.100 SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.100
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Setup/Install NuGet 6.11.0
+      uses: nuget/setup-nuget@v2
+      with:
+        nuget-version: '6.11.0'
+
+    - name: NuGet Restore BehaviorsSDKManaged.sln
+      run: nuget restore src\BehaviorsSDKManaged\BehaviorsSDKManaged.sln
+
+    - name: Build BehaviorsSDKManaged.sln
+      run: msbuild src\BehaviorsSDKManaged\BehaviorsSDKManaged.sln /p:Configuration=Release -v:diag /bl
+    
+    - name: Upload MSBuild binary log
+      uses: actions/upload-artifact@v4
+      with:
+        name: msbuild_binlog_Release_x64
+        path: msbuild.binlog
+        if-no-files-found: error
+    
+    - name: Build UWP package
+      run: msbuild /t:pack src\BehaviorsSDKManaged\Microsoft.Xaml.Interactivity.Uwp\Microsoft.Xaml.Interactivity.Uwp.csproj /p:Configuration=Release /p:TimestampPackage=true
+    
+    - name: Build WinUI 3 package
+      run: msbuild /t:pack src\BehaviorsSDKManaged\Microsoft.Xaml.Interactivity.WinUI\Microsoft.Xaml.Interactivity.WinUI.csproj /p:Configuration=Release /p:TimestampPackage=true
+    
+    - name: Upload NuGet packages
+      uses: actions/upload-artifact@v4
+      with:
+        name: nuget_packages
+        path: out\NuGetPackages\*.nupkg
+        if-no-files-found: error
+
+  samples-build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout XamlBehaviors.git 
+      uses: actions/checkout@v4
+
+    - name: Install the .NET 9.0.100 SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.100
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Setup/Install NuGet 6.11.0
+      uses: nuget/setup-nuget@v2
+      with:
+        nuget-version: '6.11.0'
+
+    - name: NuGet Restore XAMLBehaviorsSample.sln
+      run: nuget restore samples\CS\XAMLBehaviorsSample.sln
+      
+    - name: Build XAMLBehaviorsSample.sln
+      run: msbuild samples\CS\XAMLBehaviorsSample.sln /p:Configuration=Release -v:diag /bl
+    
+    - name: Upload MSBuild binary log
+      uses: actions/upload-artifact@v4
+      with:
+        name: msbuild_samples_binlog_Release_x64
+        path: msbuild.binlog
+        if-no-files-found: error

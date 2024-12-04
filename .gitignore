@@ -23,6 +23,7 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+out/
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -150,6 +151,9 @@ publish/
 !**/packages/build/
 # Uncomment if necessary however generally it will be regenerated when needed
 #!**/packages/repositories.config
+# NuGet v3's project.json files produces more ignorable files
+*.nuget.props
+*.nuget.targets
 
 # Windows Azure Build Output
 csx/
@@ -212,3 +216,8 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+**/MigrationBackup
+/src/BehaviorsSDKManaged/NuGet.config
+
+# VS Generated files
+/**/Generated Files

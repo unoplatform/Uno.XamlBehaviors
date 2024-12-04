@@ -22,8 +22,8 @@
 		<!-- Package Description -->
 		<Description>XAMLBehaviorsSample powered by Uno Platform.</Description>
 
-		<DefineConstants>WinUI</DefineConstants>
-		
+		<DefineConstants>$(DefineConstants);WinUI</DefineConstants>
+
 		<!--
 		  If you encounter this error message:
 
@@ -67,7 +67,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\src\BehaviorsSDKManaged\Microsoft.Xaml.Interactivity\Microsoft.Xaml.Interactivity.Uno.csproj" />
+		<ProjectReference 
+			Include="..\..\..\src\BehaviorsSDKManaged\Microsoft.Xaml.Interactivity\Microsoft.Xaml.Interactivity.Uno.csproj"
+			AdditionalProperties="UseWinui=true"/>
 	</ItemGroup>
 
 </Project>

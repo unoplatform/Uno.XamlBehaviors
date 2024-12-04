@@ -43,8 +43,8 @@ jobs:
     displayName: Build UWP package
 
   - pwsh: |
-       cd samples\CS\XamlBehaviorsSample.Wasm
-       dotnet build XamlBehaviorsSample.Wasm.csproj -c Release /p:UseWinUI=true /bl:$(build.artifactstagingdirectory)\build-sample.binlog
+       cd samples\CS\XamlBehaviorsSample.Uno
+       dotnet publish XamlBehaviorsSampleUno.csproj -c Release /p:UseWinUI=true /bl:$(build.artifactstagingdirectory)\build-sample.binlog
     displayName: Build Sample App
 
   - template: scripts/ci/sign-packages.yml

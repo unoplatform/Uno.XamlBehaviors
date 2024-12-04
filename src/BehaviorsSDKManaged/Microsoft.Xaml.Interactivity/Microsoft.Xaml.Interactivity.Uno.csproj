@@ -16,9 +16,9 @@
 		
 		<!-- Set by msbuild extras -->
 		<DisableImplicitFrameworkDefines>false</DisableImplicitFrameworkDefines>
-
+		
 		<!--
-		Must be set to build the sample app
+		Required to build the uno sample
 		<UseWinUI>true</UseWinUI>
 		-->
 	</PropertyGroup>

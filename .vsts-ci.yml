@@ -30,6 +30,10 @@ jobs:
     displayName: Generate Informational Version
     name: NBGV_InformationalVersion
 
+  - pwsh: |
+       cd src/BehaviorsSDKManaged
+       dotnet workload restore
+
   - template: scripts/ci/dotnet-install-windows.yml
 
   - task: MSBuild@1

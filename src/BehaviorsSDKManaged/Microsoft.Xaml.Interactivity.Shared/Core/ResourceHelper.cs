@@ -8,7 +8,13 @@ using Windows.ApplicationModel.Resources;
 internal static class ResourceHelper
 {
 #if NET8_0_OR_GREATER && !MODERN_WINDOWS_UWP
+
+#if !HAS_UNO
     private static ResourceLoader strings = new ResourceLoader(ResourceLoader.GetDefaultResourceFilePath(), "Microsoft.Xaml.Interactivity/Strings");
+#else
+    private static ResourceLoader strings = new ResourceLoader("Microsoft.Xaml.Interactivity/Strings");
+#endif
+
 #endif
 
     public static string GetString(string resourceName)

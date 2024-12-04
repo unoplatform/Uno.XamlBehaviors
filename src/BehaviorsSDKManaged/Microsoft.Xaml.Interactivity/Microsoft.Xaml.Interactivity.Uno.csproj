@@ -30,11 +30,12 @@
 				<DefineConstants>NETFX_CORE;WINDOWS_UWP;MODERN_WINDOWS_UWP</DefineConstants>
 				<PackageId>Uno.Microsoft.Xaml.Behaviors.Interactivity</PackageId>
 			</PropertyGroup>
-			<ItemGroup>
-				<PackageReference Include="Uno.UI" Version="5.0.19" />
-			</ItemGroup>
 		</Otherwise>
 	</Choose>
+	
+	<ItemGroup>
+		<PackageReference Include="Uno.UI" Version="5.0.19" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<XliffResource Include="MultilingualResources\Microsoft.Xaml.Interactivity.de-DE.xlf" />

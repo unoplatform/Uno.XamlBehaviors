@@ -44,7 +44,7 @@ jobs:
 
   - pwsh: |
        cd samples\CS\XamlBehaviorsSample.Uno
-       dotnet publish XamlBehaviorsSampleUno.csproj -c Release /p:UseWinUI=true /bl:$(build.artifactstagingdirectory)\build-sample.binlog
+       dotnet publish XamlBehaviorsSampleUno.csproj -f net9.0-browserwasm -c Release /p:UseWinUI=true /bl:$(build.artifactstagingdirectory)\build-sample.binlog
     displayName: Build Sample App
 
   - template: scripts/ci/sign-packages.yml
@@ -59,6 +59,6 @@ jobs:
   - task: PublishBuildArtifacts@1
     displayName: Publish Wasm site files
     inputs:
-      pathToPublish: .\samples\CS\XamlBehaviorsSample.Wasm\bin\Release\net7.0\dist
+      pathToPublish: .\samples\CS\XamlBehaviorsSample.Wasm\bin\Release\net9.0\publish\wwwroot
       artifactType: container
       artifactName: xamlbehavior-wasm

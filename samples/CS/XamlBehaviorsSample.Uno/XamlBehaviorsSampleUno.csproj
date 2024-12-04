@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Uno.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst;net8.0-browserwasm;net8.0-desktop</TargetFrameworks>
+		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst;net9.0-browserwasm;net9.0-desktop</TargetFrameworks>
 		
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -55,7 +55,7 @@
 		<UpToDateCheckInput Include="WasmScripts\**\*" />
 	</ItemGroup>
 		
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0-browserwasm' ">
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net9.0-browserwasm' ">
 		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.9.6">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

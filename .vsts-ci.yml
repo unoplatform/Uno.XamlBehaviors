@@ -35,48 +35,18 @@ jobs:
        dotnet workload restore
 
   - template: scripts/ci/dotnet-install-windows.yml
-
-  - task: MSBuild@1
+  
+  - pwsh: |
+       dotnet build src\BehaviorsSDKManaged\Microsoft.Xaml.Interactivity\Microsoft.Xaml.Interactivity.Uno.csproj -c Release /p:UseWinUI=true "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=$(NBGV_SemVer2)" "/p:InformationalVersion=$(NBGV_InformationalVersion)" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib-winui.binlog
     displayName: Build WinUI package
-    inputs:
-      solution: src/BehaviorsSDKManaged/BehaviorsSDKManaged.sln
-      msbuildLocationMethod: version
-      msbuildVersion: latest
-      msbuildArchitecture: x86
-      msbuildArguments: /r /p:Configuration=Release /p:UseWinUI=true "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=$(NBGV_SemVer2)" "/p:InformationalVersion=$(NBGV_InformationalVersion)" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib-winui.binlog
-      clean: false
-      maximumCpuCount: true
-      restoreNugetPackages: false
-      logProjectEvents: false
-      createLogFile: false
-
-  - task: MSBuild@1
+  
+  - pwsh: |
+       dotnet build src\BehaviorsSDKManaged\Microsoft.Xaml.Interactivity\Microsoft.Xaml.Interactivity.Uno.csproj -c Release /p:UseWinUI=false "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=$(NBGV_SemVer2)" "/p:InformationalVersion=$(NBGV_InformationalVersion)" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib-winui.binlog
     displayName: Build UWP package
-    inputs:
-      solution: src/BehaviorsSDKManaged/BehaviorsSDKManaged.sln
-      msbuildLocationMethod: version
-      msbuildVersion: latest
-      msbuildArchitecture: x86
-      msbuildArguments: /r /p:Configuration=Release "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=$(NBGV_SemVer2)" "/p:InformationalVersion=$(NBGV_InformationalVersion)" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib.binlog
-      clean: false
-      maximumCpuCount: true
-      restoreNugetPackages: false
-      logProjectEvents: false
-      createLogFile: false
 
-  - task: MSBuild@1
-    displayName: Build UWP Sample App
-    inputs:
-      solution: samples/CS/XAMLBehaviorsSample.sln
-      msbuildLocationMethod: version
-      msbuildVersion: latest
-      msbuildArchitecture: x86
-      msbuildArguments: /r /p:Configuration=Release  /detailedsummary /bl:$(build.artifactstagingdirectory)\build-sample.binlog
-      clean: false
-      maximumCpuCount: true
-      restoreNugetPackages: false
-      logProjectEvents: false
-      createLogFile: false
+  - pwsh: |
+       dotnet build samples\CS\XamlBehaviorsSample.Wasm\XamlBehaviorsSample.Wasm.csproj -c Release /p:UseWinUI=true /bl:$(build.artifactstagingdirectory)\build-sample.binlog
+    displayName: Build Sample App
 
   - template: scripts/ci/sign-packages.yml
   

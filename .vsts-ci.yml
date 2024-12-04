@@ -32,9 +32,6 @@ jobs:
 
   - template: scripts/ci/dotnet-install-windows.yml
 
-  - powershell: .\scripts\Install-WindowsSdkISO.ps1 19041
-    displayName: Install Windows SDK 19041
-
   - task: MSBuild@1
     displayName: Build WinUI package
     inputs:

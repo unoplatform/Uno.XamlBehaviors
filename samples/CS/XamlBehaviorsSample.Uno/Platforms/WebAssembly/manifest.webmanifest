@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "XAMLBehaviorsSample",
+  "display": "standalone",
+  "name": "XAMLBehaviorsSample",
+  "short_name": "XAMLBehaviorsSample",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}

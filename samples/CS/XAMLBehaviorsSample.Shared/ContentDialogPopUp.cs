@@ -1,27 +1,27 @@
 ﻿using Microsoft.Xaml.Interactivity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+#if WinUI
+using Microsoft.UI.Xaml;
+#else
 using Windows.UI.Xaml;
+#endif
 
-namespace XAMLBehaviorsSample
+namespace XAMLBehaviorsSample;
+
+partial class ContentDialogPopUp : DependencyObject, IAction
 {
-    partial class ContentDialogPopUp : DependencyObject, IAction
+    ContentDialogSample samplecd;
+
+    public object Execute(object sender, object parameter)
     {
-        ContentDialogSample samplecd;
+        samplecd = new ContentDialogSample();
+        ShowCD();
+        return null;
+    }
 
-        public object Execute(object sender, object parameter)
-        {
-            samplecd = new ContentDialogSample();
-            ShowCD();
-            return null;
-        }
-
-        public async void ShowCD()
-        {
-			await samplecd.ShowAsync();
-		}
+    public async void ShowCD()
+    {
+        await samplecd.ShowAsync();
     }
 }

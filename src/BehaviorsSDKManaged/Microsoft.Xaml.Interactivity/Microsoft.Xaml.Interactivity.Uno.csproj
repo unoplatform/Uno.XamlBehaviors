@@ -1,0 +1,78 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+	<PropertyGroup>
+		<TargetFrameworks>net8.0;net8.0-ios;net8.0-macos;net8.0-android;net8.0-maccatalyst</TargetFrameworks>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<AssemblyName>Microsoft.Xaml.Interactivity</AssemblyName>
+		<RootNamespace>Microsoft.Xaml.Interactivity</RootNamespace>
+		<NoWarn>$(NoWarn);NU1701</NoWarn>
+		
+		<OutputPath>..\..\..\out\$(SolutionName)\bin\$(Platform)\$(Configuration)\</OutputPath>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		
+		<!--https://github.com/xamarin/AndroidSupportComponents/issues/176-->
+		<XamarinAndroidSupportSkipVerifyVersions>true</XamarinAndroidSupportSkipVerifyVersions>
+		
+		<!-- Set by msbuild extras -->
+		<DisableImplicitFrameworkDefines>false</DisableImplicitFrameworkDefines>
+		
+		<!--
+		Required to build the uno sample
+		<UseWinUI>true</UseWinUI>
+		-->
+	</PropertyGroup>
+
+	<Choose>
+		<When Condition="'$(UseWinUI)'=='True'">
+			<PropertyGroup>
+				<DefineConstants>WinUI</DefineConstants>
+				<PackageId>Uno.Microsoft.Xaml.Behaviors.Interactivity.WinUI</PackageId>
+			</PropertyGroup>
+			<ItemGroup>
+				<PackageReference Include="Uno.WinUI" Version="5.0.19" />
+			</ItemGroup>
+		</When>
+		<Otherwise>
+			<PropertyGroup>
+				<DefineConstants>NETFX_CORE;WINDOWS_UWP;MODERN_WINDOWS_UWP</DefineConstants>
+				<PackageId>Uno.Microsoft.Xaml.Behaviors.Interactivity</PackageId>
+			</PropertyGroup>
+			<ItemGroup>
+				<PackageReference Include="Uno.UI" Version="5.0.19" />
+			</ItemGroup>
+		</Otherwise>
+	</Choose>
+	
+
+	<ItemGroup>
+		<XliffResource Include="MultilingualResources\Microsoft.Xaml.Interactivity.de-DE.xlf" />
+		<XliffResource Include="MultilingualResources\Microsoft.Xaml.Interactivity.es-ES.xlf" />
+		<XliffResource Include="MultilingualResources\Microsoft.Xaml.Interactivity.fr-FR.xlf" />
+		<XliffResource Include="MultilingualResources\Microsoft.Xaml.Interactivity.it-IT.xlf" />
+		<XliffResource Include="MultilingualResources\Microsoft.Xaml.Interactivity.ja-JP.xlf" />
+		<XliffResource Include="MultilingualResources\Microsoft.Xaml.Interactivity.ko-KR.xlf" />
+		<XliffResource Include="MultilingualResources\Microsoft.Xaml.Interactivity.pt-BR.xlf">
+			<SubType>Designer</SubType>
+		</XliffResource>
+		<XliffResource Include="MultilingualResources\Microsoft.Xaml.Interactivity.ru-RU.xlf" />
+		<XliffResource Include="MultilingualResources\Microsoft.Xaml.Interactivity.zh-CN.xlf" />
+		<XliffResource Include="MultilingualResources\Microsoft.Xaml.Interactivity.zh-TW.xlf" />
+		<XliffResource Include="MultilingualResources\Microsoft.Xaml.Interactivity.uk-UA.xlf" />
+	</ItemGroup>
+
+	<Import Project="..\Microsoft.Xaml.Interactivity.Shared\Microsoft.Xaml.Interactivity.Shared.projitems" Label="Shared" />
+
+	<Target Name="WorkaroundMissingWinAppSDKDLL_2"
+			BeforeTargets="BeforeBuild">
+
+		<!-- Workaround for
+         C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets(4559,5):
+				 error MSB3030: Could not copy the file "C:\a\.nuget\microsoft.windowsappsdk\1.0.0-preview3\build\..\runtimes\lib\native\AnyCPU\Microsoft.WindowsAppRuntime.Bootstrap.dll" because it was not found.
+	  -->
+		<ItemGroup>
+			<_itemToRemove Include="@(ReferenceCopyLocalPaths)" Condition="'%(FileName)%(Extension)'=='Microsoft.WindowsAppRuntime.Bootstrap.dll'" />
+			<ReferenceCopyLocalPaths Remove="@(_itemToRemove)"/>
+		</ItemGroup>
+	</Target>
+</Project>

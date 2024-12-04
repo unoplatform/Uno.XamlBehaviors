@@ -14,65 +14,38 @@ jobs:
       $global:LASTEXITCODE = 0
     displayName: Adjust nuget.org source 
 
-  - task: gitversion/setup@0
-    retryCountOnTaskFailure: 3
-    inputs:
-      versionSpec: '5.10.3'
-
-  - task: gitversion/execute@0
-    retryCountOnTaskFailure: 3
-    inputs:
-      updateAssemblyInfo: 'False'
-      useConfigFile: true
-      configFilePath: gitversion.yml
-    displayName: Use GitVersion
+  - pwsh: |
+      dotnet tool uninstall nbgv -g
+      dotnet tool install nbgv -g --version 3.6.139
+      nbgv cloud -a
+    displayName: Version with NBGV
+    name: NBGV
+  
+  - pwsh: |
+      $InformationalVersion="$(NBGV_SemVer2)+$(NBGV_GitCommitId)-$(NBGV_BuildingRef)".Replace("refs/heads/","").Replace("/","-")
+      echo "##vso[task.setvariable variable=NBGV_InformationalVersion;]$InformationalVersion"
+      echo "##vso[task.setvariable variable=NBGV_InformationalVersion;isOutput=true;]$InformationalVersion"
+      echo "Informational Version: $InformationalVersion"
+  
+    displayName: Generate Informational Version
+    name: NBGV_InformationalVersion
 
   - template: scripts/ci/dotnet-install-windows.yml
-
-  - powershell: .\scripts\Install-WindowsSdkISO.ps1 19041
-    displayName: Install Windows SDK 19041
-
-  - task: MSBuild@1
+  
+  - pwsh: |
+       cd src\BehaviorsSDKManaged\Microsoft.Xaml.Interactivity
+       dotnet build Microsoft.Xaml.Interactivity.Uno.csproj -c Release /p:UseWinUI=true "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=$(NBGV_SemVer2)" "/p:InformationalVersion=$(NBGV_InformationalVersion)" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib-winui.binlog
     displayName: Build WinUI package
-    inputs:
-      solution: src/BehaviorsSDKManaged/BehaviorsSDKManaged.sln
-      msbuildLocationMethod: version
-      msbuildVersion: latest
-      msbuildArchitecture: x86
-      msbuildArguments: /r /p:Configuration=Release /p:UseWinUI=true "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=%GITVERSION_FullSemVer%" "/p:InformationalVersion=%GITVERSION_InformationalVersion%" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib-winui.binlog
-      clean: false
-      maximumCpuCount: true
-      restoreNugetPackages: false
-      logProjectEvents: false
-      createLogFile: false
-
-  - task: MSBuild@1
+  
+  - pwsh: |
+       cd src\BehaviorsSDKManaged\Microsoft.Xaml.Interactivity
+       dotnet build Microsoft.Xaml.Interactivity.Uno.csproj -c Release /p:UseWinUI=false "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=$(NBGV_SemVer2)" "/p:InformationalVersion=$(NBGV_InformationalVersion)" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib-winui.binlog
     displayName: Build UWP package
-    inputs:
-      solution: src/BehaviorsSDKManaged/BehaviorsSDKManaged.sln
-      msbuildLocationMethod: version
-      msbuildVersion: latest
-      msbuildArchitecture: x86
-      msbuildArguments: /r /p:Configuration=Release "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=%GITVERSION_FullSemVer%" "/p:InformationalVersion=%GITVERSION_InformationalVersion%" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib.binlog
-      clean: false
-      maximumCpuCount: true
-      restoreNugetPackages: false
-      logProjectEvents: false
-      createLogFile: false
 
-  - task: MSBuild@1
-    displayName: Build UWP Sample App
-    inputs:
-      solution: samples/CS/XAMLBehaviorsSample.sln
-      msbuildLocationMethod: version
-      msbuildVersion: latest
-      msbuildArchitecture: x86
-      msbuildArguments: /r /p:Configuration=Release  /detailedsummary /bl:$(build.artifactstagingdirectory)\build-sample.binlog
-      clean: false
-      maximumCpuCount: true
-      restoreNugetPackages: false
-      logProjectEvents: false
-      createLogFile: false
+  - pwsh: |
+       cd samples\CS\XamlBehaviorsSample.Uno
+       dotnet publish XamlBehaviorsSampleUno.csproj -f net9.0-browserwasm -c Release /p:UseWinUI=true /bl:$(build.artifactstagingdirectory)\build-sample.binlog
+    displayName: Build Sample App
 
   - template: scripts/ci/sign-packages.yml
   
@@ -86,6 +59,6 @@ jobs:
   - task: PublishBuildArtifacts@1
     displayName: Publish Wasm site files
     inputs:
-      pathToPublish: .\samples\CS\XamlBehaviorsSample.Wasm\bin\Release\net7.0\dist
+      pathToPublish: .\samples\CS\XamlBehaviorsSample.Uno\bin\Release\net9.0-browserwasm\publish
       artifactType: container
       artifactName: xamlbehavior-wasm

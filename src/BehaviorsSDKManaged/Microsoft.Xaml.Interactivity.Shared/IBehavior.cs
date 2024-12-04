@@ -7,39 +7,39 @@ using Microsoft.UI.Xaml;
 using Windows.UI.Xaml;
 #endif
 
-namespace Microsoft.Xaml.Interactivity
+namespace Microsoft.Xaml.Interactivity;
+
+/// <summary>
+/// Interface implemented by all custom behaviors.
+/// </summary>
+public interface IBehavior
 {
     /// <summary>
-    /// Interface implemented by all custom behaviors.
+    /// Gets the <see cref="DependencyObject"/> to which the <seealso cref="IBehavior"/> is attached.
     /// </summary>
-    public interface IBehavior
+    DependencyObject AssociatedObject
     {
-        /// <summary>
-        /// Gets the <see cref="DependencyObject"/> to which the <seealso cref="IBehavior"/> is attached.
-        /// </summary>
-        DependencyObject AssociatedObject {
-            get;
-        }
-
-        /// <summary>
-        /// Attaches to the specified object.
-        /// </summary>
-        /// <param name="associatedObject">The <see cref="DependencyObject"/> to which the <seealso cref="IBehavior"/> will be attached.</param>
-        void Attach(DependencyObject associatedObject);
-
-        /// <summary>
-        /// Detaches this instance from its associated object.
-        /// </summary>
-        void Detach();
+        get;
     }
 
-    internal interface IBehavior2
-    {
-        /// <summary>
-        /// Gets the <see cref="Windows.UI.Xaml.DependencyObject"/> to which the <seealso cref="IBehavior"/> is attached.
-        /// </summary>
-        DependencyObject AssociatedObjectWeak {
-            get; set;
-        }
+    /// <summary>
+    /// Attaches to the specified object.
+    /// </summary>
+    /// <param name="associatedObject">The <see cref="DependencyObject"/> to which the <seealso cref="IBehavior"/> will be attached.</param>
+    void Attach(DependencyObject associatedObject);
+
+    /// <summary>
+    /// Detaches this instance from its associated object.
+    /// </summary>
+    void Detach();
+}
+
+internal interface IBehavior2
+{
+    /// <summary>
+    /// Gets the <see cref="Windows.UI.Xaml.DependencyObject"/> to which the <seealso cref="IBehavior"/> is attached.
+    /// </summary>
+    DependencyObject AssociatedObjectWeak {
+        get; set;
     }
 }

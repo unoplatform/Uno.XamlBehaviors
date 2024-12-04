@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Media;
 
 namespace XAMLBehaviorsSample;
 
-public class DragPositionBehavior : DependencyObject, IBehavior
+public partial class DragPositionBehavior : DependencyObject, IBehavior
 {
     public DependencyObject AssociatedObject
     {

@@ -38,7 +38,7 @@ sealed partial class App : Application
         }
 #endif
 
-            Frame rootFrame = Windows.UI.Xaml.Window.Current.Content as Frame;
+        Frame rootFrame = Windows.UI.Xaml.Window.Current.Content as Frame;
 
         // Do not repeat app initialization when the Window already has content,
         // just ensure that the window is active
@@ -54,9 +54,9 @@ sealed partial class App : Application
                 //TODO: Load state from previously suspended application
             }
 
-                // Place the frame in the current Window
-				Windows.UI.Xaml.Window.Current.Content = rootFrame;
-            }
+            // Place the frame in the current Window
+            Windows.UI.Xaml.Window.Current.Content = rootFrame;
+        }
 
         if (rootFrame.Content == null)
         {
@@ -64,28 +64,28 @@ sealed partial class App : Application
             // configuring the new page by passing required information as a navigation
             // parameter
 
-                //if (DetectMobile())
-                //{
-                //    rootFrame.Navigate(typeof(MainPage_Mobile), e.Arguments);
-                //}
-                //else
-                //{
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
-               // }
-            }
-			// Ensure the current window is active
-			Windows.UI.Xaml.Window.Current.Activate();
+            //if (DetectMobile())
+            //{
+            //    rootFrame.Navigate(typeof(MainPage_Mobile), e.Arguments);
+            //}
+            //else
+            //{
+            rootFrame.Navigate(typeof(MainPage), e.Arguments);
+            // }
         }
+        // Ensure the current window is active
+        Windows.UI.Xaml.Window.Current.Activate();
+    }
 
-        /// <summary>
-        /// Invoked when Navigation to a certain page fails
-        /// </summary>
-        /// <param name="sender">The Frame which failed navigation</param>
-        /// <param name="e">Details about the navigation failure</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
-            throw new Exception($"Failed to load Page {e.SourcePageType.FullName}: {e.Exception}");
-        }
+    /// <summary>
+    /// Invoked when Navigation to a certain page fails
+    /// </summary>
+    /// <param name="sender">The Frame which failed navigation</param>
+    /// <param name="e">Details about the navigation failure</param>
+    void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+    {
+        throw new Exception($"Failed to load Page {e.SourcePageType.FullName}: {e.Exception}");
+    }
 
     /// <summary>
     /// Invoked when application execution is being suspended.  Application state is saved
@@ -101,23 +101,23 @@ sealed partial class App : Application
         deferral.Complete();
     }
 
-        private bool DetectMobile()
-        {
-			bool isHardwareButtonsAPIPresent =
+    private bool DetectMobile()
+    {
+        bool isHardwareButtonsAPIPresent =
 #if !XAMARIN
-				ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons");
+            ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons");
 #else
 				false;
 #endif
 
-			if (isHardwareButtonsAPIPresent)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+        if (isHardwareButtonsAPIPresent)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }
+

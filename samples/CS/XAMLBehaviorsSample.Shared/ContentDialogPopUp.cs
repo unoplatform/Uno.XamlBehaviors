@@ -4,7 +4,7 @@ using Windows.UI.Xaml;
 
 namespace XAMLBehaviorsSample;
 
-class ContentDialogPopUp : DependencyObject, IAction
+partial class ContentDialogPopUp : DependencyObject, IAction
 {
     ContentDialogSample samplecd;
 

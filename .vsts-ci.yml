@@ -42,7 +42,7 @@ jobs:
       msbuildLocationMethod: version
       msbuildVersion: latest
       msbuildArchitecture: x86
-      msbuildArguments: /r /p:Configuration=Release /p:UseWinUI=true "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=%NBGV_SemVer2%" "/p:InformationalVersion=%NBGV_InformationalVersion%" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib-winui.binlog
+      msbuildArguments: /r /p:Configuration=Release /p:UseWinUI=true "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=$(NBGV_SemVer2)" "/p:InformationalVersion=$(NBGV_InformationalVersion)" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib-winui.binlog
       clean: false
       maximumCpuCount: true
       restoreNugetPackages: false
@@ -56,7 +56,7 @@ jobs:
       msbuildLocationMethod: version
       msbuildVersion: latest
       msbuildArchitecture: x86
-      msbuildArguments: /r /p:Configuration=Release "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=%NBGV_SemVer2%" "/p:InformationalVersion=%NBGV_InformationalVersion%" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib.binlog
+      msbuildArguments: /r /p:Configuration=Release "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=$(NBGV_SemVer2)" "/p:InformationalVersion=$(NBGV_InformationalVersion)" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib.binlog
       clean: false
       maximumCpuCount: true
       restoreNugetPackages: false

@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 #if NET8_0_OR_GREATER
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+
 #endif
 using System.Reflection;
 
@@ -56,7 +58,15 @@ internal static class DataBindingHelper
         {
             propertyList = new List<DependencyProperty>();
 
-            while (type != null && type != typeof(DependencyObject))
+            while (type != null &&
+
+#if !HAS_UNO
+                type != typeof(DependencyObject)
+#else
+                !type.GetInterfaces().Contains(typeof(DependencyObject))
+#endif
+
+            )
             {
                 foreach (FieldInfo fieldInfo in type.GetRuntimeFields())
                 {

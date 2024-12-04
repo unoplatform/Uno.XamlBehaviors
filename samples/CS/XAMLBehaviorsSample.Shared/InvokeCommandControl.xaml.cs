@@ -2,8 +2,19 @@
 using System.ComponentModel;
 using System.Windows.Input;
 using Windows.UI;
+
+#if WinUI
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
+#else
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+#endif
+
+
+
 
 namespace XAMLBehaviorsSample;
 

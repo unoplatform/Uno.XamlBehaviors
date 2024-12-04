@@ -16,6 +16,11 @@
 		
 		<!-- Set by msbuild extras -->
 		<DisableImplicitFrameworkDefines>false</DisableImplicitFrameworkDefines>
+
+		<!--
+		Must be set to build the sample app
+		<UseWinUI>true</UseWinUI>
+		-->
 	</PropertyGroup>
 
 	<Choose>

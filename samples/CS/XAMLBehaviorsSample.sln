@@ -9,9 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Xaml.Interactivit
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "XAMLBehaviorsSample.Shared", "XAMLBehaviorsSample.Shared\XAMLBehaviorsSample.Shared.shproj", "{E1728140-C649-4880-993E-7D6A0B2F4D88}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlBehaviorsSample.Wasm", "XamlBehaviorsSample.Wasm\XamlBehaviorsSample.Wasm.csproj", "{6FB1ADA8-462D-40FF-AEDD-AFC3EC4A4C91}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Microsoft.Xaml.Interactions.Shared", "..\..\src\BehaviorsSDKManaged\Microsoft.Xaml.Interactions.Shared\Microsoft.Xaml.Interactions.Shared.shproj", "{0B356A23-7184-4E11-9706-2BF6A5FC82EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlBehaviorsSampleUno", "XamlBehaviorsSample.Uno\XamlBehaviorsSampleUno.csproj", "{6FB1ADA8-462D-40FF-AEDD-AFC3EC4A4C91}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Microsoft.Xaml.Interactivity.Shared", "..\..\src\BehaviorsSDKManaged\Microsoft.Xaml.Interactivity.Shared\Microsoft.Xaml.Interactivity.Shared.shproj", "{52E3ED43-3013-4155-AD87-6DF52A265D59}"
 EndProject
@@ -181,6 +179,7 @@ Global
 		{6FB1ADA8-462D-40FF-AEDD-AFC3EC4A4C91}.AppStore|x86.Build.0 = Debug|Any CPU
 		{6FB1ADA8-462D-40FF-AEDD-AFC3EC4A4C91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6FB1ADA8-462D-40FF-AEDD-AFC3EC4A4C91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FB1ADA8-462D-40FF-AEDD-AFC3EC4A4C91}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{6FB1ADA8-462D-40FF-AEDD-AFC3EC4A4C91}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{6FB1ADA8-462D-40FF-AEDD-AFC3EC4A4C91}.Debug|ARM.Build.0 = Debug|Any CPU
 		{6FB1ADA8-462D-40FF-AEDD-AFC3EC4A4C91}.Debug|iPhone.ActiveCfg = Debug|Any CPU
@@ -211,7 +210,6 @@ Global
 		SolutionGuid = {BAEA616E-866E-41F8-B6B8-ED0114DDB811}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\..\src\BehaviorsSDKManaged\Microsoft.Xaml.Interactions.Shared\Microsoft.Xaml.Interactions.Shared.projitems*{0b356a23-7184-4e11-9706-2bf6a5fc82eb}*SharedItemsImports = 13
 		..\..\src\BehaviorsSDKManaged\Microsoft.Xaml.Interactivity.Shared\Microsoft.Xaml.Interactivity.Shared.projitems*{52e3ed43-3013-4155-ad87-6df52a265d59}*SharedItemsImports = 13
 		XAMLBehaviorsSample.Shared\XAMLBehaviorsSample.Shared.projitems*{6fb1ada8-462d-40ff-aedd-afc3ec4a4c91}*SharedItemsImports = 5
 		..\..\src\BehaviorsSDKManaged\Microsoft.Xaml.Interactivity.Shared\Microsoft.Xaml.Interactivity.Shared.projitems*{a338a7f2-9010-477b-8a6e-6c2b2495c33c}*SharedItemsImports = 5

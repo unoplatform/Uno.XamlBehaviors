@@ -1,8 +1,15 @@
 ﻿using Microsoft.Xaml.Interactivity;
 using Windows.Foundation;
+
+#if WinUI
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
+#else
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+#endif
 
 namespace XAMLBehaviorsSample;
 

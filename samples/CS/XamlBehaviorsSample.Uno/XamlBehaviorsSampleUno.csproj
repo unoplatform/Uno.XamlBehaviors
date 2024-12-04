@@ -47,12 +47,13 @@
 	<Import Project="..\XAMLBehaviorsSample.Shared\XAMLBehaviorsSample.Shared.projitems" Label="Shared" />
 
 	<ItemGroup>
-		<EmbeddedResource Include="WasmCSS\**\*.css" />
-		<EmbeddedResource Include="WasmScripts\**\*.js" />
+		<EmbeddedResource Include="WasmScripts\GoogleAnalytics.js" />
 
 		<UpToDateCheckInput Include="ts\**\*" />
 		<UpToDateCheckInput Include="WasmCSS\**\*" />
 		<UpToDateCheckInput Include="WasmScripts\**\*" />
+		
+		<ConfigFiles Include="tsconfig.json" />
 	</ItemGroup>
 		
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net9.0-browserwasm' ">

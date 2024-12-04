@@ -30,7 +30,7 @@ namespace Microsoft.Xaml.Interactivity;
 /// This action is intended for use with short sound effects that don't need to be stopped or controlled. If you are trying 
 /// to create a music player or game, it may not meet your needs.
 /// </remarks>
-public sealed class PlaySoundAction : DependencyObject, IAction
+public sealed partial class PlaySoundAction : DependencyObject, IAction
 {        
     private readonly DispatcherQueue _queue = DispatcherQueue.GetForCurrentThread();
 
@@ -134,13 +134,17 @@ public sealed class PlaySoundAction : DependencyObject, IAction
         mediaElement.Source = MediaSource.CreateFromUri(sourceUri);
         mediaElement.AutoPlay = true;
         mediaElement.MediaPlayer.Volume = this.Volume;
+
+#if !HAS_UNO
         mediaElement.MediaPlayer.MediaEnded += this.MediaElement_MediaEnded;
         mediaElement.MediaPlayer.MediaFailed += this.MediaPlayer_MediaFailed;
+#endif
 
         this._popup.IsOpen = true;
         return true;
     }
 
+#if !HAS_UNO
     private void MediaPlayer_MediaFailed(MediaPlayer sender, MediaPlayerFailedEventArgs args)
     {
         // TODO: We should probably have some system/properties to report/bubble errors here
@@ -151,6 +155,7 @@ public sealed class PlaySoundAction : DependencyObject, IAction
     {
         ClosePopup();
     }
+#endif
 
     private void ClosePopup()
     {

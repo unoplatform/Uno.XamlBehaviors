@@ -18,7 +18,7 @@ namespace Microsoft.Xaml.Interactivity;
 /// <summary>
 /// Executes a specified <see cref="global::System.Windows.Input.ICommand"/> when invoked. 
 /// </summary>
-public sealed class InvokeCommandAction : DependencyObject, IAction
+public sealed partial class InvokeCommandAction : DependencyObject, IAction
 {
     /// <summary>
     /// Identifies the <seealso cref="Command"/> dependency property.

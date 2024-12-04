@@ -20,7 +20,7 @@ namespace Microsoft.Xaml.Interactivity;
 #if NET8_0_OR_GREATER
 [RequiresUnreferencedCode("This action is not trim-safe.")]
 #endif
-public sealed class ChangePropertyAction : DependencyObject, IAction
+public sealed partial class ChangePropertyAction : DependencyObject, IAction
 {
     /// <summary>
     /// Identifies the <seealso cref="PropertyName"/> dependency property.

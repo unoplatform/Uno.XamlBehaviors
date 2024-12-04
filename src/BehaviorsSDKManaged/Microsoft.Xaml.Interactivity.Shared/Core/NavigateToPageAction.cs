@@ -20,7 +20,7 @@ namespace Microsoft.Xaml.Interactivity;
 /// <summary>
 /// An action that switches the current visual to the specified <see cref="Page"/>.
 /// </summary>
-public sealed class NavigateToPageAction : DependencyObject, IAction
+public sealed partial class NavigateToPageAction : DependencyObject, IAction
 {
     private readonly IVisualTreeHelper _visualTreeHelper;
 

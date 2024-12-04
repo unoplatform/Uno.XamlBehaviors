@@ -1,6 +1,6 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
 	<PropertyGroup>
-		<TargetFrameworks>net7.0;net7.0-ios;net7.0-macos;net7.0-android;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net8.0;net8.0-ios;net8.0-macos;net8.0-android;net8.0-maccatalyst</TargetFrameworks>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -23,21 +23,15 @@
 			<PropertyGroup>
 				<DefineConstants>WinUI</DefineConstants>
 				<PackageId>Uno.Microsoft.Xaml.Behaviors.Interactivity.WinUI</PackageId>
-				<TargetFrameworks>$(TargetFrameworks);net5.0-windows10.0.19041.0</TargetFrameworks>
 			</PropertyGroup>
-			<ItemGroup>
-				<PackageReference Condition="'$(TargetFramework)'!='net5.0-windows10.0.19041.0'" Include="Uno.WinUI" Version="5.0.0-dev.1148" />
-				<PackageReference Condition="'$(TargetFramework)'=='net5.0-windows10.0.19041.0'" Include="Microsoft.WindowsAppSDK" Version="1.0.1" />
-			</ItemGroup>
 		</When>
 		<Otherwise>
 			<PropertyGroup>
-				<DefineConstants>NETFX_CORE;WINDOWS_UWP</DefineConstants>
+				<DefineConstants>NETFX_CORE;WINDOWS_UWP;MODERN_WINDOWS_UWP</DefineConstants>
 				<PackageId>Uno.Microsoft.Xaml.Behaviors.Interactivity</PackageId>
-				<TargetFrameworks>$(TargetFrameworks);uap10.0.19041</TargetFrameworks>
 			</PropertyGroup>
 			<ItemGroup>
-				<PackageReference Include="Uno.UI" Version="5.0.0-dev.1148" />
+				<PackageReference Include="Uno.UI" Version="5.0.19" />
 			</ItemGroup>
 		</Otherwise>
 	</Choose>
@@ -58,16 +52,7 @@
 		<XliffResource Include="MultilingualResources\Microsoft.Xaml.Interactivity.uk-UA.xlf" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<Compile Include="..\Version\Version.cs" />
-		<EmbeddedResource Include="Properties\Microsoft.Xaml.Interactivity.rd.xml" />
-	</ItemGroup>
-
 	<Import Project="..\Microsoft.Xaml.Interactivity.Shared\Microsoft.Xaml.Interactivity.Shared.projitems" Label="Shared" />
-
-	<ItemGroup>
-	  <PackageReference Update="DotNet.ReproducibleBuilds" Version="0.1.66" />
-	</ItemGroup>
 
 	<Target Name="WorkaroundMissingWinAppSDKDLL_2"
 			BeforeTargets="BeforeBuild">

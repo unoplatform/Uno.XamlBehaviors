@@ -245,7 +245,11 @@ public sealed class IncrementalUpdateBehavior : Behavior<FrameworkElement>
 
         private void OnContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs e)
         {
-            UIElement contentTemplateRoot = e.ItemContainer.ContentTemplateRoot;
+#if HAS_UNO
+            UIElement contentTemplateRoot = e.ItemContainer.ContentTemplateRoot as UIElement /* UNO TODO */;
+#else
+			UIElement contentTemplateRoot = e.ItemContainer.ContentTemplateRoot;
+#endif
 
             ElementCacheRecord elementCacheRecord;
             if (this._elementCache.TryGetValue(contentTemplateRoot, out elementCacheRecord))
@@ -286,7 +290,11 @@ public sealed class IncrementalUpdateBehavior : Behavior<FrameworkElement>
 
         private void OnContainerContentChangingCallback(ListViewBase sender, ContainerContentChangingEventArgs e)
         {
-            UIElement contentTemplateRoot = e.ItemContainer.ContentTemplateRoot;
+#if HAS_UNO
+			UIElement contentTemplateRoot = e.ItemContainer.ContentTemplateRoot as UIElement /* UNO TODO */;
+#else
+			UIElement contentTemplateRoot = e.ItemContainer.ContentTemplateRoot;
+#endif
 
             ElementCacheRecord elementCacheRecord;
             if (this._elementCache.TryGetValue(contentTemplateRoot, out elementCacheRecord))
@@ -326,7 +334,11 @@ public sealed class IncrementalUpdateBehavior : Behavior<FrameworkElement>
 
                 if (item != null)
                 {
-                    return item.ContentTemplateRoot;
+#if HAS_UNO
+						return item.ContentTemplateRoot as UIElement /* UNO TODO */;
+#else
+						return item.ContentTemplateRoot;
+#endif
                 }
                 ancestor = parent;
             }

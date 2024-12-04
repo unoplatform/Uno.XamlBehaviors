@@ -52,8 +52,8 @@
     <IntermediateOutputPath>..\..\..\out\$(SolutionName)\obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Microsoft.Xaml.Interactivity\Microsoft.Xaml.Interactivity.csproj">
-      <Name>Microsoft.Xaml.Interactivity</Name>
+    <ProjectReference Include="..\Microsoft.Xaml.Interactivity\Microsoft.Xaml.Interactivity.Uno.csproj">
+      <Name>Microsoft.Xaml.Interactivity.Uno</Name>
       <Project>{a338a7f2-9010-477b-8a6e-6c2b2495c33c}</Project>
     </ProjectReference>
   </ItemGroup>

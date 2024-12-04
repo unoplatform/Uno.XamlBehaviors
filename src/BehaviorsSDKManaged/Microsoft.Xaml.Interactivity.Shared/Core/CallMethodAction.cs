@@ -22,7 +22,7 @@ namespace Microsoft.Xaml.Interactivity;
 #if NET8_0_OR_GREATER
 [RequiresUnreferencedCode("This action is not trim-safe.")]
 #endif
-public sealed class CallMethodAction : DependencyObject, IAction
+public sealed partial class CallMethodAction : DependencyObject, IAction
 {
     /// <summary>
     /// Identifies the <seealso cref="MethodName"/> dependency property.

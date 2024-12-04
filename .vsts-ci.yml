@@ -30,22 +30,21 @@ jobs:
     displayName: Generate Informational Version
     name: NBGV_InformationalVersion
 
-  - pwsh: |
-       cd src/BehaviorsSDKManaged
-       dotnet workload restore
-
   - template: scripts/ci/dotnet-install-windows.yml
   
   - pwsh: |
-       dotnet build src\BehaviorsSDKManaged\Microsoft.Xaml.Interactivity\Microsoft.Xaml.Interactivity.Uno.csproj -c Release /p:UseWinUI=true "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=$(NBGV_SemVer2)" "/p:InformationalVersion=$(NBGV_InformationalVersion)" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib-winui.binlog
+       cd src\BehaviorsSDKManaged\Microsoft.Xaml.Interactivity
+       dotnet build Microsoft.Xaml.Interactivity.Uno.csproj -c Release /p:UseWinUI=true "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=$(NBGV_SemVer2)" "/p:InformationalVersion=$(NBGV_InformationalVersion)" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib-winui.binlog
     displayName: Build WinUI package
   
   - pwsh: |
-       dotnet build src\BehaviorsSDKManaged\Microsoft.Xaml.Interactivity\Microsoft.Xaml.Interactivity.Uno.csproj -c Release /p:UseWinUI=false "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=$(NBGV_SemVer2)" "/p:InformationalVersion=$(NBGV_InformationalVersion)" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib-winui.binlog
+       cd src\BehaviorsSDKManaged\Microsoft.Xaml.Interactivity
+       dotnet build Microsoft.Xaml.Interactivity.Uno.csproj -c Release /p:UseWinUI=false "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=$(NBGV_SemVer2)" "/p:InformationalVersion=$(NBGV_InformationalVersion)" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib-winui.binlog
     displayName: Build UWP package
 
   - pwsh: |
-       dotnet build samples\CS\XamlBehaviorsSample.Wasm\XamlBehaviorsSample.Wasm.csproj -c Release /p:UseWinUI=true /bl:$(build.artifactstagingdirectory)\build-sample.binlog
+       cd samples\CS\XamlBehaviorsSample.Wasm
+       dotnet build XamlBehaviorsSample.Wasm.csproj -c Release /p:UseWinUI=true /bl:$(build.artifactstagingdirectory)\build-sample.binlog
     displayName: Build Sample App
 
   - template: scripts/ci/sign-packages.yml

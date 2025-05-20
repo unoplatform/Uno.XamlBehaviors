@@ -15,12 +15,12 @@ steps:
   #   errorActionPreference: stop
   #   retryCountOnTaskFailure: 3
   - task: UseDotNet@2
-   displayName: 'Use .NET Core SDK ${{ parameters.DotNetVersion }}'
-   retryCountOnTaskFailure: 3
-   inputs:
-     packageType: sdk
-     version: ${{ parameters.DotNetVersion }}
-     includePreviewVersions: true
+    displayName: 'Use .NET Core SDK ${{ parameters.DotNetVersion }}'
+    retryCountOnTaskFailure: 3
+    inputs:
+      packageType: sdk
+      version: ${{ parameters.DotNetVersion }}
+      includePreviewVersions: true
     
   - powershell: |
       & dotnet tool update --global uno.check --version ${{ parameters.UnoCheck_Version }} --add-source https://api.nuget.org/v3/index.json

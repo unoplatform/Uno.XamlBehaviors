@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Xaml.Interactivity.Uno", "Microsoft.Xaml.Interactivity\Microsoft.Xaml.Interactivity.Uno.csproj", "{A338A7F2-9010-477B-8A6E-6C2B2495C33C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Xaml.Interactivity", "Microsoft.Xaml.Interactivity\Microsoft.Xaml.Interactivity.csproj", "{A338A7F2-9010-477B-8A6E-6C2B2495C33C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagedUnitTests", "ManagedUnitTests\ManagedUnitTests.csproj", "{9A26166B-1E98-4723-9B42-FB64BDC231E6}"
 EndProject

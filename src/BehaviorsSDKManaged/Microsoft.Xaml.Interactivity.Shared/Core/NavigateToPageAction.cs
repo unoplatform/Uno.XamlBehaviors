@@ -122,27 +122,24 @@ public sealed partial class NavigateToPageAction : DependencyObject, IAction
             return false;
         }
 
-        INavigate navigateElement;
-        if (sender is UIElement element && element.XamlRoot != null)
+        INavigate navigateElement = sender as INavigate;
+        DependencyObject senderObject = sender as DependencyObject;
+        bool hasDependencyObjectSender = senderObject != null;
+
+        // If the sender isn't an INavigate, look up its tree for the nearest one.
+        while (senderObject != null && navigateElement == null)
+        {
+            senderObject = this._visualTreeHelper.GetParent(senderObject);
+            navigateElement = senderObject as INavigate;
+        }
+
+        if (navigateElement == null && sender is UIElement element && element.XamlRoot != null)
         {
             navigateElement = element.XamlRoot.Content as INavigate;
         }
-        else
+        else if (navigateElement == null && !hasDependencyObjectSender)
         {
             navigateElement = Window.Current?.Content as INavigate;
-        }
-
-        DependencyObject senderObject = sender as DependencyObject;
-
-        // If the sender wasn't an INavigate, then keep looking up the tree from the
-        // root we were given for another INavigate.
-        while (senderObject != null && navigateElement == null)
-        {
-            navigateElement = senderObject as INavigate;
-            if (navigateElement == null)
-            {
-                senderObject = this._visualTreeHelper.GetParent(senderObject);
-            }
         }
 
         if (navigateElement == null)

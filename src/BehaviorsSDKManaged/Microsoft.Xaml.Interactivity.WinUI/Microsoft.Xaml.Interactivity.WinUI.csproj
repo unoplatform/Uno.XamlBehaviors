@@ -13,7 +13,7 @@
     <CsWinRTGenerateProjection>false</CsWinRTGenerateProjection>
     <CsWinRTAotWarningLevel>2</CsWinRTAotWarningLevel>
 
-    <!-- Temporary workaround for a WebView2 bugs -->
+    <!-- Temporary workaround for WebView2 bugs -->
     <WebView2EnableCsWinRTProjectionExcludeCoreRef>true</WebView2EnableCsWinRTProjectionExcludeCoreRef>
     <WebView2LoaderPreference>none</WebView2LoaderPreference>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>

@@ -61,7 +61,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <CustomToolNamespace>Microsoft.Xaml.Interactivity.Design.Properties</CustomToolNamespace>
       <SubType>Designer</SubType>
-      <LastGenOutput>DesignTools.Resources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Compile Include="MetadataTableProvider.cs" />
     <Compile Include="MetadataTableProvider.SurfaceIsolation.cs" />

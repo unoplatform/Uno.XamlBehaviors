@@ -27,7 +27,7 @@ variables:
   ${{ else }}:
     value: test
 - name: TeamName
-  value: vscx-tools-authoring
+  value: XAMLTools
 - name: TimestampPackage
   value: ${{ not (parameters.OfficialRelease) }}
 resources:
@@ -39,6 +39,8 @@ resources:
 extends:
   template: azure-pipelines/MicroBuild.1ES.Official.yml@MicroBuildTemplate
   parameters:
+    settings:
+      networkIsolationPolicy: Permissive,CFSClean,CFSClean2,CFSClean3
     pool:
       name: VSEngSS-MicroBuild2022-1ES
     sdl:
@@ -46,6 +48,9 @@ extends:
         name: AzurePipelines-EO
         image: 1ESPT-Windows2022
         os: windows
+      policheck:
+        enabled: true
+        exclusionsFile: $(System.DefaultWorkingDirectory)\azure-pipelines\PoliCheckExclusions.xml
       autobaseline:
         enableForGitHub: false
     customBuildTags:
@@ -111,6 +116,7 @@ extends:
           inputs:
             solution: src\BehaviorsSDKManaged\BehaviorsSDKManaged.sln
             selectOrConfig: config
+            nugetConfigPath: azure-pipelines/nuget.config
         - task: MicroBuildSigningPlugin@4
           inputs:
             signType: '$(SignType)'

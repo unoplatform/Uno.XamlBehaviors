@@ -1,5 +1,5 @@
 parameters:
-  DotNetVersion: '9.0.300'
+  DotNetVersion: '9.0.x'
   UnoCheck_Version: '1.32.0-dev.14'
 
 steps:

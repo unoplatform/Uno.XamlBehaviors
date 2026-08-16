@@ -1,8 +1,17 @@
-# This Yaml Document has been converted by ESAI Yaml Pipeline Conversion Tool.
+trigger: none
+schedules:
+- cron: 0 3 * * 1,2,3,4,5
+  branches:
+    include:
+    - refs/heads/main
 name: $(Date:yyyyMMdd).$(Rev:r)
 parameters:
 - name: OfficialRelease
   displayName: "Build and publish an official release"
+  type: boolean
+  default: true
+- name: PushNuGetPackages
+  displayName: "Push NuGet packages to NuGet.org"
   type: boolean
   default: false
 variables:
@@ -18,13 +27,9 @@ variables:
   ${{ else }}:
     value: test
 - name: TeamName
-  value: vscx-tools-authoring
+  value: XAMLTools
 - name: TimestampPackage
   value: ${{ not (parameters.OfficialRelease) }}
-trigger:
-  branches:
-    include:
-    - refs/heads/main
 resources:
   repositories:
   - repository: MicroBuildTemplate
@@ -34,6 +39,8 @@ resources:
 extends:
   template: azure-pipelines/MicroBuild.1ES.Official.yml@MicroBuildTemplate
   parameters:
+    settings:
+      networkIsolationPolicy: Permissive,CFSClean,CFSClean2,CFSClean3
     pool:
       name: VSEngSS-MicroBuild2022-1ES
     sdl:
@@ -41,6 +48,9 @@ extends:
         name: AzurePipelines-EO
         image: 1ESPT-Windows2022
         os: windows
+      policheck:
+        enabled: true
+        exclusionsFile: $(System.DefaultWorkingDirectory)\azure-pipelines\PoliCheckExclusions.xml
       autobaseline:
         enableForGitHub: false
     customBuildTags:
@@ -60,6 +70,8 @@ extends:
             signing:
               enabled: true
               signType: $(SignType)
+              ${{ if eq(variables.SignType, 'real') }}:
+                signWithProd: true
             sbom:
               enabled: true
           outputs:
@@ -74,7 +86,7 @@ extends:
             condition: always()
           - output: nuget
             displayName: 'NuGet push to NuGet.org'
-            condition: and(succeeded(), eq(variables['Build.OfficialRelease'], 'true'))
+            condition: and(succeeded(), eq(variables['Build.OfficialRelease'], 'true'), eq('${{ parameters.PushNuGetPackages }}', 'true'))
             packageParentPath: '$(Build.ArtifactStagingDirectory)\Packages'
             packagesToPush: $(Build.ArtifactStagingDirectory)\Packages\*.nupkg;!$(Build.ArtifactStagingDirectory)\Packages\*.symbols.nupkg
             nuGetFeedType: external
@@ -89,9 +101,9 @@ extends:
             SourceFolder: out
             Contents: '**\'
         - task: UseDotNet@2
-          displayName: Use .NET SDK 9.0.100
+          displayName: Use .NET SDK 9.0.x
           inputs:
-            version: 9.0.100
+            version: 9.0.x
             performMultiLevelLookup: true
         - task: NuGetToolInstaller@1
           displayName: Use NuGet 6.x
@@ -104,6 +116,7 @@ extends:
           inputs:
             solution: src\BehaviorsSDKManaged\BehaviorsSDKManaged.sln
             selectOrConfig: config
+            nugetConfigPath: azure-pipelines/nuget.config
         - task: MicroBuildSigningPlugin@4
           inputs:
             signType: '$(SignType)'
@@ -136,14 +149,17 @@ extends:
             SourceFolder: $(Build.SourcesDirectory)\out
             Contents: '**\bin\**\*.pdb'
             TargetFolder: $(Pipeline.Workspace)\Symbols
-        - task: MicroBuildArchiveSymbols@5
+        - task: MicroBuildArchiveSymbols@6
           displayName: Archive Symbols
           condition: and(succeeded(), eq(variables['Build.OfficialRelease'], 'true'))
           inputs:
+            azureSubscription: VSEng-SymbolsUpload
             SymbolsFeatureName: XamlBehaviors
             SymbolsProject: VS
             SymbolsAgentPath: $(Pipeline.Workspace)\Symbols
             SubmitToInternet: false
+          env:
+            SYSTEM_ACCESSTOKEN: $(System.AccessToken)
         - task: CopyFiles@2
           displayName: 'Copy NuGet Packages to: $(Build.ArtifactStagingDirectory)\Packages'
           inputs:

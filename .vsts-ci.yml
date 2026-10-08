@@ -76,7 +76,9 @@ jobs:
       packageType: sdk
       version: '10.0.101'
 
-  - bash: dotnet build $(RuntimeTestsProject)/Microsoft.Xaml.Interactivity.RuntimeTests.csproj -c Release -bl:$(Build.ArtifactStagingDirectory)/build-runtime-tests.binlog
+  # BehaviorsTargetFrameworksOverride keeps the referenced library on net10.0: the iOS/Android
+  # workloads are not installed (and iOS cannot be) on this Linux agent.
+  - bash: dotnet build $(RuntimeTestsProject)/Microsoft.Xaml.Interactivity.RuntimeTests.csproj -c Release -p:BehaviorsTargetFrameworksOverride=net10.0 -p:GeneratePackageOnBuild=false -bl:$(Build.ArtifactStagingDirectory)/build-runtime-tests.binlog
     displayName: Build runtime tests app
 
   # The engine runs every test on startup when UNO_RUNTIME_TESTS_RUN_TESTS is set, writes the

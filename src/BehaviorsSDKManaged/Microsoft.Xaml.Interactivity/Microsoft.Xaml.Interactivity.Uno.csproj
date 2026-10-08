@@ -1,49 +1,20 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Uno.Sdk.Private">
 	<PropertyGroup>
-		<TargetFrameworks>net8.0;net8.0-ios;net8.0-macos;net8.0-android;net8.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net10.0;net10.0-ios;net10.0-android</TargetFrameworks>
+		<OutputType>Library</OutputType>
+		<UnoSingleProject>true</UnoSingleProject>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<AssemblyName>Microsoft.Xaml.Interactivity</AssemblyName>
 		<RootNamespace>Microsoft.Xaml.Interactivity</RootNamespace>
+		<PackageId>Uno.Microsoft.Xaml.Behaviors.Interactivity.WinUI</PackageId>
+		<DefineConstants>$(DefineConstants);WinUI</DefineConstants>
 		<NoWarn>$(NoWarn);NU1701</NoWarn>
-		
+
 		<OutputPath>..\..\..\out\$(SolutionName)\bin\$(Platform)\$(Configuration)\</OutputPath>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		
-		<!--https://github.com/xamarin/AndroidSupportComponents/issues/176-->
-		<XamarinAndroidSupportSkipVerifyVersions>true</XamarinAndroidSupportSkipVerifyVersions>
-		
-		<!-- Set by msbuild extras -->
-		<DisableImplicitFrameworkDefines>false</DisableImplicitFrameworkDefines>
-		
-		<!--
-		Required to build the uno sample
-		<UseWinUI>true</UseWinUI>
-		-->
 	</PropertyGroup>
-
-	<Choose>
-		<When Condition="'$(UseWinUI)'=='True'">
-			<PropertyGroup>
-				<DefineConstants>WinUI</DefineConstants>
-				<PackageId>Uno.Microsoft.Xaml.Behaviors.Interactivity.WinUI</PackageId>
-			</PropertyGroup>
-			<ItemGroup>
-				<PackageReference Include="Uno.WinUI" Version="5.0.19" />
-			</ItemGroup>
-		</When>
-		<Otherwise>
-			<PropertyGroup>
-				<DefineConstants>NETFX_CORE;WINDOWS_UWP;MODERN_WINDOWS_UWP</DefineConstants>
-				<PackageId>Uno.Microsoft.Xaml.Behaviors.Interactivity</PackageId>
-			</PropertyGroup>
-			<ItemGroup>
-				<PackageReference Include="Uno.UI" Version="5.0.19" />
-			</ItemGroup>
-		</Otherwise>
-	</Choose>
-	
 
 	<ItemGroup>
 		<XliffResource Include="MultilingualResources\Microsoft.Xaml.Interactivity.de-DE.xlf" />

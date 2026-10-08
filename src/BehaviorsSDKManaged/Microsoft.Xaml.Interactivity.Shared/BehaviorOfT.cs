@@ -16,13 +16,7 @@ namespace Microsoft.Xaml.Interactivity;
 /// and allow for typed associtated objects.
 /// </summary>
 /// <typeparam name="T">The object type to attach to</typeparam>
-	public abstract class Behavior<T> : Behavior 
-		where T:
-#if HAS_UNO
-		class,
-#endif
-		DependencyObject
-
+public abstract class Behavior<T> : Behavior where T : DependencyObject
 {
     /// <summary>
     /// Gets the object to which this behavior is attached.

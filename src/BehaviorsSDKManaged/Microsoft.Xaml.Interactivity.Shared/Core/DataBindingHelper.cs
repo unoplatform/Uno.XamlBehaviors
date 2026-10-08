@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 #if NET8_0_OR_GREATER
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-
 #endif
 using System.Reflection;
 
@@ -58,17 +56,10 @@ internal static class DataBindingHelper
         {
             propertyList = new List<DependencyProperty>();
 
-            while (type != null &&
-
-#if !HAS_UNO
-                type != typeof(DependencyObject)
-#else
-                !type.GetInterfaces().Contains(typeof(DependencyObject))
-#endif
-
-            )
+            Type currentType = type;
+            while (currentType != null && currentType != typeof(DependencyObject))
             {
-                foreach (FieldInfo fieldInfo in type.GetRuntimeFields())
+                foreach (FieldInfo fieldInfo in currentType.GetRuntimeFields())
                 {
                     if (fieldInfo.IsPublic && fieldInfo.FieldType == typeof(DependencyProperty))
                     {
@@ -80,7 +71,7 @@ internal static class DataBindingHelper
                     }
                 }
 
-                type = type.GetTypeInfo().BaseType;
+                currentType = currentType.GetTypeInfo().BaseType;
             }
 
             DataBindingHelper.DependenciesPropertyCache[type] = propertyList;

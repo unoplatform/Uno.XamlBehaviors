@@ -33,13 +33,3 @@ public interface IBehavior
     /// </summary>
     void Detach();
 }
-
-internal interface IBehavior2
-{
-    /// <summary>
-    /// Gets the <see cref="Windows.UI.Xaml.DependencyObject"/> to which the <seealso cref="IBehavior"/> is attached.
-    /// </summary>
-    DependencyObject AssociatedObjectWeak {
-        get; set;
-    }
-}

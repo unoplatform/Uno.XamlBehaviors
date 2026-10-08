@@ -16,34 +16,12 @@ namespace Microsoft.Xaml.Interactivity;
 /// <summary>
 /// A base class for behaviors, implementing the basic plumbing of IBehavior
 /// </summary>
-    public abstract partial class Behavior : DependencyObject, IBehavior
-#if HAS_UNO
-        , IBehavior2
-#endif
+public abstract partial class Behavior : DependencyObject, IBehavior
 {
     /// <summary>
     /// Gets the <see cref="DependencyObject"/> to which the behavior is attached.
     /// </summary>
     public DependencyObject AssociatedObject { get; private set; }
-
-#if HAS_UNO
-        private WeakReference _associatedObjectWeak;
-
-        DependencyObject IBehavior2.AssociatedObjectWeak {
-            get => _associatedObjectWeak?.Target as DependencyObject;
-            set
-            {
-                if (value != null)
-                {
-                    _associatedObjectWeak = new WeakReference(value);
-                }
-                else
-                {
-                    _associatedObjectWeak = null;
-                }
-            }
-        }
-#endif
 
     /// <summary>
     /// Attaches the behavior to the specified <see cref="DependencyObject"/>.
@@ -71,10 +49,6 @@ namespace Microsoft.Xaml.Interactivity;
         if (associatedObject == null) throw new ArgumentNullException(nameof(associatedObject));
 
         AssociatedObject = associatedObject;
-
-#if HAS_UNO
-            (this as IBehavior2).AssociatedObjectWeak = associatedObject;
-#endif
         OnAttached();
     }
 

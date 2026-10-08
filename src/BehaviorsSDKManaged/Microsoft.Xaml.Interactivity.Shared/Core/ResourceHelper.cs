@@ -9,6 +9,7 @@ internal static class ResourceHelper
 {
 #if NET8_0_OR_GREATER && !MODERN_WINDOWS_UWP
 
+    // Uno does not implement ResourceLoader.GetDefaultResourceFilePath(), so resolve the library resources by name there.
 #if !HAS_UNO
     private static ResourceLoader strings = new ResourceLoader(ResourceLoader.GetDefaultResourceFilePath(), "Microsoft.Xaml.Interactivity/Strings");
 #else

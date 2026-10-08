@@ -34,17 +34,12 @@ jobs:
   
   - pwsh: |
        cd src\BehaviorsSDKManaged\Microsoft.Xaml.Interactivity
-       dotnet build Microsoft.Xaml.Interactivity.Uno.csproj -c Release /p:UseWinUI=true "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=$(NBGV_SemVer2)" "/p:InformationalVersion=$(NBGV_InformationalVersion)" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib-winui.binlog
+       dotnet build Microsoft.Xaml.Interactivity.Uno.csproj -c Release "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=$(NBGV_SemVer2)" "/p:InformationalVersion=$(NBGV_InformationalVersion)" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib-winui.binlog
     displayName: Build WinUI package
-  
-  - pwsh: |
-       cd src\BehaviorsSDKManaged\Microsoft.Xaml.Interactivity
-       dotnet build Microsoft.Xaml.Interactivity.Uno.csproj -c Release /p:UseWinUI=false "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" "/p:PackageVersion=$(NBGV_SemVer2)" "/p:InformationalVersion=$(NBGV_InformationalVersion)" /detailedsummary /bl:$(build.artifactstagingdirectory)\build-lib-winui.binlog
-    displayName: Build UWP package
 
   - pwsh: |
        cd samples\CS\XamlBehaviorsSample.Uno
-       dotnet publish XamlBehaviorsSampleUno.csproj -f net9.0-browserwasm -c Release /p:UseWinUI=true /bl:$(build.artifactstagingdirectory)\build-sample.binlog
+       dotnet publish XamlBehaviorsSampleUno.csproj -f net10.0-browserwasm -c Release /bl:$(build.artifactstagingdirectory)\build-sample.binlog
     displayName: Build Sample App
 
   - template: scripts/ci/sign-packages.yml
@@ -59,6 +54,60 @@ jobs:
   - task: PublishBuildArtifacts@1
     displayName: Publish Wasm site files
     inputs:
-      pathToPublish: .\samples\CS\XamlBehaviorsSample.Uno\bin\Release\net9.0-browserwasm\publish
+      pathToPublish: .\samples\CS\XamlBehaviorsSample.Uno\bin\Release\net10.0-browserwasm\publish
       artifactType: container
       artifactName: xamlbehavior-wasm
+
+- job: RuntimeTests_Desktop
+  displayName: Desktop Runtime Tests
+
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  variables:
+    RuntimeTestsProject: src/BehaviorsSDKManaged/Microsoft.Xaml.Interactivity.RuntimeTests
+    RuntimeTestsResults: $(Build.ArtifactStagingDirectory)/desktop-runtime-tests-results.xml
+
+  steps:
+  - task: UseDotNet@2
+    displayName: 'Use .NET SDK 10.0.101'
+    retryCountOnTaskFailure: 3
+    inputs:
+      packageType: sdk
+      version: '10.0.101'
+
+  - bash: dotnet build $(RuntimeTestsProject)/Microsoft.Xaml.Interactivity.RuntimeTests.csproj -c Release -bl:$(Build.ArtifactStagingDirectory)/build-runtime-tests.binlog
+    displayName: Build runtime tests app
+
+  # The engine runs every test on startup when UNO_RUNTIME_TESTS_RUN_TESTS is set, writes the
+  # NUnit results to UNO_RUNTIME_TESTS_OUTPUT_PATH, then exits the app.
+  - bash: |
+      set -euo pipefail
+      sudo apt-get update -qq
+      sudo apt-get install -y -qq xvfb fluxbox
+      cd $(RuntimeTestsProject)/bin/Release/net10.0-desktop
+      xvfb-run --auto-servernum --server-args='-screen 0 1280x1024x24' bash -c "{ fluxbox & } ; dotnet Microsoft.Xaml.Interactivity.RuntimeTests.dll" || true
+      if [ ! -f "$UNO_RUNTIME_TESTS_OUTPUT_PATH" ]; then
+        echo "Runtime tests did not produce results at $UNO_RUNTIME_TESTS_OUTPUT_PATH"
+        exit 1
+      fi
+    displayName: Run runtime tests
+    env:
+      UNO_RUNTIME_TESTS_RUN_TESTS: '{}'
+      UNO_RUNTIME_TESTS_OUTPUT_PATH: $(RuntimeTestsResults)
+
+  - task: PublishTestResults@2
+    condition: always()
+    inputs:
+      testRunTitle: 'Desktop Runtime Tests'
+      testResultsFormat: 'NUnit'
+      testResultsFiles: $(RuntimeTestsResults)
+      failTaskOnFailedTests: true
+      failTaskOnMissingResultsFile: true
+
+  - task: PublishBuildArtifacts@1
+    condition: always()
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: runtime-tests
+      publishLocation: Container

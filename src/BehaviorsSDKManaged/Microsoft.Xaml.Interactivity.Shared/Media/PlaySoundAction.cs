@@ -135,27 +135,23 @@ public sealed partial class PlaySoundAction : DependencyObject, IAction
         mediaElement.AutoPlay = true;
         mediaElement.MediaPlayer.Volume = this.Volume;
 
-#if !HAS_UNO
         mediaElement.MediaPlayer.MediaEnded += this.MediaElement_MediaEnded;
         mediaElement.MediaPlayer.MediaFailed += this.MediaPlayer_MediaFailed;
-#endif
 
         this._popup.IsOpen = true;
         return true;
     }
 
-#if !HAS_UNO
-    private void MediaPlayer_MediaFailed(MediaPlayer sender, MediaPlayerFailedEventArgs args)
+    private void MediaPlayer_MediaFailed(global::Windows.Media.Playback.MediaPlayer sender, MediaPlayerFailedEventArgs args)
     {
         // TODO: We should probably have some system/properties to report/bubble errors here
         ClosePopup();
     }
 
-    private void MediaElement_MediaEnded(MediaPlayer sender, object args)
+    private void MediaElement_MediaEnded(global::Windows.Media.Playback.MediaPlayer sender, object args)
     {
         ClosePopup();
     }
-#endif
 
     private void ClosePopup()
     {

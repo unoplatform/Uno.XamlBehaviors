@@ -1,0 +1,35 @@
+<Project Sdk="Uno.Sdk.Private">
+	<PropertyGroup>
+		<TargetFrameworks>net10.0-desktop</TargetFrameworks>
+		<OutputType>Exe</OutputType>
+		<UnoSingleProject>true</UnoSingleProject>
+		<IsPackable>false</IsPackable>
+
+		<ApplicationTitle>XamlBehaviors Runtime Tests</ApplicationTitle>
+		<ApplicationId>uno.xamlbehaviors.runtimetests</ApplicationId>
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+		<ApplicationPublisher>Uno Platform</ApplicationPublisher>
+		<RootNamespace>Microsoft.Xaml.Interactivity.RuntimeTests</RootNamespace>
+
+		<!-- Override the C# 12 / documentation settings from Directory.Build.props, which target the library. -->
+		<LangVersion>latest</LangVersion>
+		<GenerateDocumentationFile>false</GenerateDocumentationFile>
+		<Nullable>enable</Nullable>
+		<!-- The behaviors are annotated as not trim-safe; the test host is not trimmed. -->
+		<NoWarn>$(NoWarn);IL2026;Uno0001</NoWarn>
+
+		<UnoFeatures>
+			SkiaRenderer;
+		</UnoFeatures>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Uno.UI.RuntimeTests.Engine" Version="2.0.0-dev.89" />
+		<PackageReference Include="MSTest.TestFramework" Version="4.3.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Microsoft.Xaml.Interactivity\Microsoft.Xaml.Interactivity.Uno.csproj" />
+	</ItemGroup>
+</Project>

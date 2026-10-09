@@ -1,20 +1,33 @@
 # Uno Platform port of Xaml Behaviors
 
-This port allows for Uno-based apps to use behaviors on Windows, iOS, Android and WebAssembly.
+This port allows for Uno-based apps to use behaviors on iOS, Android, WebAssembly and Desktop (Skia).
 
-The WinUI [Uno.Microsoft.Xaml.Behaviors.WinUI.Managed](https://www.nuget.org/packages/Uno.Microsoft.Xaml.Behaviors.Uwp.Managed) and UWP [Uno.Microsoft.Xaml.Behaviors.Uwp.Managed](https://www.nuget.org/packages/Uno.Microsoft.Xaml.Behaviors.Uwp.Managed) Nuget packages is available.
+The [Uno.Microsoft.Xaml.Behaviors.Interactivity.WinUI](https://www.nuget.org/packages/Uno.Microsoft.Xaml.Behaviors.Interactivity.WinUI) NuGet package is available.
 
-To install the WinUI behaviors in .NET class libraries, such as the ones found in Uno Platform 4.7, use the following:
+| Package version | Uno Platform | Target frameworks |
+| --------------- | ------------ | ----------------- |
+| 4.x | 7.0 and later | `net10.0`, `net10.0-ios`, `net10.0-android` |
+| 3.x | 5.x / 6.x | `net8.0`, `net8.0-ios`, `net8.0-android`, `net8.0-macos`, `net8.0-maccatalyst` |
+
+The UWP-flavoured `Uno.Microsoft.Xaml.Behaviors.Interactivity` package (based on `Uno.UI`) is discontinued; its last version is 3.x.
+
+On the WinAppSDK (`-windows`) target, reference Microsoft's package instead:
 
 ```xml
-<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows10.0.19041.0'">
-  <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
+<ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
+  <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="3.0.1" />
 </ItemGroup>
-<ItemGroup Condition="'$(TargetFramework)' != 'net6.0-windows10.0.19041.0'">
-  <PackageReference Include="Uno.Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.3.0" />
+<ItemGroup Condition="!$(TargetFramework.Contains('-windows'))">
+  <PackageReference Include="Uno.Microsoft.Xaml.Behaviors.Interactivity.WinUI" Version="4.0.0" />
 </ItemGroup>
 ```
-You may need to adjust `net6.0-windows10.0.19041.0` to the TargetFramework value found in your project.
+
+## Building and testing the Uno package
+
+The repository uses `Uno.Sdk.Private` (pinned in the root `global.json`) and the .NET 10 SDK.
+
+- Build and pack: `dotnet build src/BehaviorsSDKManaged/Microsoft.Xaml.Interactivity/Microsoft.Xaml.Interactivity.Uno.csproj -c Release`
+- Runtime tests (Skia desktop): build `src/BehaviorsSDKManaged/Microsoft.Xaml.Interactivity.RuntimeTests`, then run its `net10.0-desktop` output with `UNO_RUNTIME_TESTS_RUN_TESTS={}` and `UNO_RUNTIME_TESTS_OUTPUT_PATH=<results.xml>` set, or launch it normally to use the interactive test runner.
 
 # **XAML Behaviors**
 XAML Behaviors is an easy-to-use means of adding common and reusable interactivity to your Windows UWP applications with minimal code. It is available for both native and managed applications. Use of XAML Behaviors is governed by the MIT License

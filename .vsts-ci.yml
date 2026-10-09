@@ -1,8 +1,27 @@
+trigger:
+  branches:
+    include:
+      - uno
+      - servicing/*
+      - release/beta/*
+      - release/stable/*
+
+pr:
+  branches:
+    include:
+      - uno
+      - servicing/*
+      - release/beta/*
+      - release/stable/*
+
 jobs:
 - job: VS_Latest
   variables:
-    NUGET_PACKAGES: $(Agent.WorkFolder)\.nuget
-    NUGET_HTTP_CACHE_PATH: $(Agent.WorkFolder)\.nuget-http-cache
+  - group: uno-codesign-vault
+  - name: NUGET_PACKAGES
+    value: $(Agent.WorkFolder)\.nuget
+  - name: NUGET_HTTP_CACHE_PATH
+    value: $(Agent.WorkFolder)\.nuget-http-cache
 
   pool:
     vmImage: 'windows-2022'

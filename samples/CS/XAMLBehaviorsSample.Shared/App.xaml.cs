@@ -31,7 +31,9 @@ sealed partial class App : Application
     public App()
     {
         this.InitializeComponent();
+#if !WinUI
         this.Suspending += OnSuspending;
+#endif
     }
 
     /// <summary>
@@ -100,6 +102,7 @@ sealed partial class App : Application
         throw new Exception($"Failed to load Page {e.SourcePageType.FullName}: {e.Exception}");
     }
 
+#if !WinUI
     /// <summary>
     /// Invoked when application execution is being suspended.  Application state is saved
     /// without knowing whether the application will be terminated or resumed with the contents
@@ -113,6 +116,7 @@ sealed partial class App : Application
         //TODO: Save application state and stop any background activity
         deferral.Complete();
     }
+#endif
 
     private bool DetectMobile()
     {

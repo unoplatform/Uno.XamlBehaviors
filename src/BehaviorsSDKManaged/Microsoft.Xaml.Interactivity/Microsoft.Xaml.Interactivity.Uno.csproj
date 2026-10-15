@@ -1,4 +1,4 @@
-﻿<Project Sdk="Uno.Sdk.Private">
+﻿<Project Sdk="Uno.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net10.0;net10.0-ios;net10.0-android</TargetFrameworks>
 		<!-- Lets CI build only some flavors, e.g. net10.0 for the desktop runtime tests on Linux where the iOS workload is unavailable. -->

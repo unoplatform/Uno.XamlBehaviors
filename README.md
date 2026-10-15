@@ -24,7 +24,7 @@ On the WinAppSDK (`-windows`) target, reference Microsoft's package instead:
 
 ## Building and testing the Uno package
 
-The repository uses `Uno.Sdk.Private` (pinned in the root `global.json`) and the .NET 10 SDK.
+The repository uses `Uno.Sdk` (pinned in the root `global.json`) and the .NET 10 SDK.
 
 - Build and pack: `dotnet build src/BehaviorsSDKManaged/Microsoft.Xaml.Interactivity/Microsoft.Xaml.Interactivity.Uno.csproj -c Release`
 - Runtime tests (Skia desktop): build `src/BehaviorsSDKManaged/Microsoft.Xaml.Interactivity.RuntimeTests`, then run its `net10.0-desktop` output with `UNO_RUNTIME_TESTS_RUN_TESTS={}` and `UNO_RUNTIME_TESTS_OUTPUT_PATH=<results.xml>` set, or launch it normally to use the interactive test runner.

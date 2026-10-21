@@ -3,6 +3,19 @@
     <PackageReference Include="DotNet.ReproducibleBuilds" Version="0.1.26" PrivateAssets="All"/>
   </ItemGroup>
 
+  <!--
+    Uno.Sdk implies the 'skia' feature and injects the renderer add-ins it brings. The renderer is the app's
+    choice and the library uses none of them, so drop them; otherwise every app that uses the behaviors gets
+    SkiaSharp, even a WebGPU-only one. Marking them private is not enough: the XAML generator would still chain
+    the generated GlobalStaticResources into every add-in it is compiled against, and an app without that add-in
+    would fail to load it. App heads (the runtime tests, the sample) keep them.
+  -->
+  <Target Name="_BehaviorsRemoveRendererPackages" AfterTargets="UnoImplicitPackages" Condition="'$(IsUnoHead)' != 'true'">
+    <ItemGroup>
+      <PackageReference Remove="Uno.WinUI.Composition.Skia;Uno.WinUI.Graphics2DSK" />
+    </ItemGroup>
+  </Target>
+
 	<Target Name="WorkaroundMissingWinAppSDKDLL"
 				BeforeTargets="BinPlaceBootstrapDll">
 
